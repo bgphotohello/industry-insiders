@@ -110,10 +110,11 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="mt-12 md:mt-14"
+      className="mt-2 lg:mt-1"
       aria-describedby={formError ? errorId : undefined}
     >
-      <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
+      {/* Two rows of three on desktop, exactly as the comp lays them out. */}
+      <div className="grid gap-x-5 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
         <Field
           label={interest.fields.firstName.label}
           error={errors.firstName?.message}
@@ -133,7 +134,6 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
           error={errors.email?.message}
           {...register("email")}
           autoComplete={interest.fields.email.autoComplete}
-          className="sm:col-span-2"
         />
         <Field
           label={interest.fields.company.label}
@@ -153,7 +153,7 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
           error={errors.referral?.message}
           {...register("referral")}
           autoComplete={interest.fields.referral.autoComplete}
-          className="sm:col-span-2"
+          className="sm:col-span-2 lg:col-span-1"
         />
       </div>
 
@@ -208,7 +208,7 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
         <button
           type="submit"
           disabled={isSubmitting}
-          className="group relative inline-flex items-center justify-center overflow-hidden border border-champagne-500/50 px-10 py-4 font-sans text-[0.72rem] font-medium uppercase tracking-[0.28em] text-ivory-50 transition-[border-color,background-color,opacity] duration-500 hover:border-champagne-400/90 hover:bg-champagne-500/[0.07] disabled:cursor-not-allowed disabled:opacity-60"
+          className="group relative inline-flex items-center justify-center overflow-hidden bg-champagne-500 px-9 py-3.5 font-sans text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-ink transition-[background-color,opacity] duration-500 hover:bg-champagne-400 disabled:cursor-not-allowed disabled:opacity-60"
         >
           <span className="transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px">
             {isSubmitting ? interest.submittingLabel : interest.submitLabel}
@@ -219,14 +219,15 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
           {isSubmitting && !prefersReducedMotion && (
             <motion.span
               aria-hidden
-              className="absolute bottom-0 left-0 h-px w-1/3 bg-champagne-400/90"
+              className="absolute bottom-0 left-0 h-px w-1/3 bg-ink/45"
               animate={{ x: ["-110%", "330%"] }}
               transition={{ duration: 1.15, repeat: Infinity, ease: "linear" }}
             />
           )}
         </button>
 
-        <p className="text-[0.8rem] font-light leading-[1.6] text-faint">
+        <p className="flex items-center gap-2.5 text-[0.78rem] font-light leading-[1.6] text-faint">
+          <LockGlyph />
           {interest.privacyNote}
         </p>
       </div>
@@ -236,6 +237,27 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
         {isSubmitting ? "Submitting your request." : ""}
       </p>
     </form>
+  );
+}
+
+/**
+ * The small champagne padlock beside the privacy line, as in the comp.
+ * Decorative — the sentence next to it already says everything.
+ */
+function LockGlyph() {
+  return (
+    <svg
+      viewBox="0 0 12 14"
+      className="h-3.5 w-3 shrink-0 text-champagne-500"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.1"
+      aria-hidden
+      focusable="false"
+    >
+      <rect x="0.75" y="5.75" width="10.5" height="7.5" rx="1" />
+      <path d="M3.25 5.75V3.9a2.75 2.75 0 0 1 5.5 0v1.85" />
+    </svg>
   );
 }
 
@@ -258,7 +280,9 @@ function Field({ label, hint, error, className, ...props }: FieldProps) {
   const errorId = `${id}-error`;
 
   return (
-    <div className={className}>
+    // A flex column with the input pushed to the bottom, so a label that wraps
+    // to two lines never knocks its row of inputs out of alignment.
+    <div className={`flex h-full flex-col ${className ?? ""}`}>
       <div className="flex items-baseline justify-between gap-4">
         <label
           htmlFor={id}
@@ -273,12 +297,15 @@ function Field({ label, hint, error, className, ...props }: FieldProps) {
         )}
       </div>
 
+      {/* Spacer: pushes the input to the bottom of the cell. */}
+      <span aria-hidden className="grow" />
+
       <input
         id={id}
         {...props}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
-        className="focus-ring-custom mt-3 w-full border-b border-rule-soft bg-transparent pb-3 text-[1rem] font-light text-ivory-50 transition-colors duration-500 placeholder:text-faint/50 hover:border-champagne-500/40 focus:border-champagne-400 focus-visible:outline-none"
+        className="focus-ring-custom mt-2 w-full border border-rule-soft bg-navy-950/60 px-4 py-3 text-[0.95rem] font-light text-ivory-50 transition-colors duration-500 hover:border-champagne-500/40 focus:border-champagne-400 focus-visible:outline-none"
       />
 
       {error && (

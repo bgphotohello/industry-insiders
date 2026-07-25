@@ -282,7 +282,7 @@ export function IntroSequence({ onComplete }: { onComplete: () => void }) {
                 <motion.span
                   key={`${letter}-${index}`}
                   aria-hidden
-                  className="font-display text-[clamp(1.15rem,0.9rem+1.6vw,2.1rem)] font-light uppercase leading-none tracking-[0.42em] text-ivory-50"
+                  className="font-display text-[clamp(1.15rem,0.9rem+1.6vw,2.1rem)] font-light uppercase leading-none tracking-[0.42em] text-metal"
                   initial={{ y: "110%", opacity: 0 }}
                   animate={
                     showWordmark
@@ -303,7 +303,7 @@ export function IntroSequence({ onComplete }: { onComplete: () => void }) {
             </div>
 
             <motion.p
-              className="mt-6 text-center font-sans text-[0.72rem] font-light tracking-[0.24em] text-faint md:text-[0.8rem]"
+              className="mt-6 text-center font-sans text-[0.72rem] font-light uppercase tracking-[0.28em] text-champagne-400/85 md:text-[0.78rem]"
               initial={{ opacity: 0 }}
               animate={{ opacity: showTagline ? 1 : 0 }}
               transition={{ duration: 0.9, ease: "easeOut" }}

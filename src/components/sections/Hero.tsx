@@ -1,19 +1,26 @@
 "use client";
 
 import { motion } from "motion/react";
-import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
 
+import { BrandLogo } from "@/components/brand/BrandLogo";
+import { HeroDust } from "@/components/hero/HeroDust";
 import { useIntroFinished } from "@/components/intro/IntroProvider";
 import { CtaLink } from "@/components/ui/CtaLink";
-import { hero } from "@/content/site";
+import { DiamondRule, FlankedLabel } from "@/components/ui/DiamondRule";
+import { brand, hero, heroHeadingText } from "@/content/site";
+import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
 
 /**
- * The hero.
+ * The hero — a centred lockup, per the approved design comp.
  *
- * No photography by design — the atmosphere comes from a single soft navy
- * lift, two hairlines, and the type itself. Content is present in the markup
- * from first paint; only the entrance waits for the intro to finish, so
- * nothing is gated behind animation and the intro causes no layout shift.
+ * Gold does the hierarchy here: the mark, the display wordmark, the tagline
+ * and the closing phrase of the headline all carry champagne, while the body
+ * copy stays cool and quiet. No photography; the atmosphere is the dust cloud
+ * and the type.
+ *
+ * Content is in the markup from first paint. Only the entrance animation waits
+ * for the intro, so nothing is gated behind motion and the intro causes no
+ * layout shift.
  */
 export function Hero() {
   const introFinished = useIntroFinished();
@@ -23,10 +30,10 @@ export function Hero() {
     prefersReducedMotion
       ? { initial: false as const, animate: { opacity: 1, y: 0 } }
       : {
-          initial: { opacity: 0, y: 16 },
+          initial: { opacity: 0, y: 14 },
           animate: introFinished
             ? { opacity: 1, y: 0 }
-            : { opacity: 0, y: 16 },
+            : { opacity: 0, y: 14 },
           transition: {
             duration: 1,
             delay: introFinished ? delay : 0,
@@ -38,102 +45,133 @@ export function Hero() {
     <section
       id="top"
       aria-labelledby="hero-heading"
-      className="relative flex min-h-[100svh] items-center overflow-hidden pb-24 pt-28 md:pb-32 md:pt-32"
+      className="relative flex min-h-[100svh] items-center overflow-hidden pb-14 pt-20 md:pb-16 md:pt-24"
     >
-      {/* Atmosphere: one restrained radial lift and a pair of hairlines. */}
+      {/* Atmosphere: one soft navy lift, then the dust. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(110% 80% at 50% 30%, rgba(16,38,66,0.72) 0%, rgba(6,20,38,0) 60%)",
+            "radial-gradient(105% 75% at 50% 34%, rgba(12,32,58,0.60) 0%, rgba(1,8,22,0) 62%)",
         }}
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-[8%] hidden w-px bg-gradient-to-b from-transparent via-champagne-500/12 to-transparent lg:block"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 right-[8%] hidden w-px bg-gradient-to-b from-transparent via-champagne-500/12 to-transparent lg:block"
-      />
+      <HeroDust />
 
-      <div className="shell relative w-full">
-        <motion.p
-          className="u-label"
-          {...rise(0.05)}
+      <div className="shell relative flex w-full flex-col items-center text-center">
+        {/* --- The lockup ---------------------------------------------- */}
+        <motion.div
+          className="text-champagne-500"
+          {...rise(0.02)}
         >
-          {hero.eyebrow}
+          <BrandLogo
+            variant="mark"
+            width={200}
+            height={120}
+            priority
+            className="h-auto w-[clamp(5.5rem,3.6rem+5.4vw,8.75rem)]"
+          />
+        </motion.div>
+
+        <motion.p
+          className="mt-6 font-display text-[clamp(1.65rem,1rem+2.9vw,3.35rem)] font-light uppercase leading-[1.16] text-metal md:mt-7"
+          // Tracking this wide leaves a trailing space after the last letter;
+          // the negative margin pulls the optical centre back to true centre.
+          style={{ letterSpacing: "0.34em", marginRight: "-0.34em" }}
+          {...rise(0.1)}
+        >
+          <span className="block">{brand.wordmarkLines[0]}</span>
+          <span className="block">
+            {brand.wordmarkLines[1]}
+            {brand.trademark && (
+              <span className="align-super text-[0.26em] tracking-normal">
+                {brand.trademark}
+              </span>
+            )}
+          </span>
         </motion.p>
+
+        <motion.div
+          className="mt-6 w-full max-w-sm md:mt-7"
+          {...rise(0.18)}
+        >
+          <DiamondRule />
+        </motion.div>
+
+        <motion.p
+          className="mt-5 font-sans text-[clamp(0.64rem,0.6rem+0.22vw,0.76rem)] font-medium uppercase tracking-[0.3em] text-champagne-400/90"
+          {...rise(0.24)}
+        >
+          {brand.tagline}
+          {brand.trademark && (
+            <span className="align-super text-[0.62em] tracking-normal">
+              {brand.trademark}
+            </span>
+          )}
+        </motion.p>
+
+        {/* --- The proposition ----------------------------------------- */}
+        <motion.div className="mt-10 md:mt-12" {...rise(0.32)}>
+          <FlankedLabel>{hero.eyebrow}</FlankedLabel>
+        </motion.div>
 
         <motion.h1
           id="hero-heading"
-          className="mt-8 max-w-[19ch] font-display text-[clamp(2.9rem,1.8rem+4.6vw,6.25rem)] font-light leading-[0.98] tracking-[-0.015em] text-ivory-50"
-          {...rise(0.16)}
+          className="mt-6 max-w-[16ch] font-display text-[clamp(2.2rem,1.45rem+3.1vw,4.2rem)] font-light leading-[1.06] tracking-[-0.012em] text-ivory-50"
+          // The heading is split for typographic emphasis; this keeps it as one
+          // readable sentence for assistive technology and search.
+          aria-label={heroHeadingText}
+          {...rise(0.38)}
         >
-          {hero.heading}
+          <span aria-hidden className="block">
+            {hero.heading.line1}
+          </span>
+          <span aria-hidden className="block italic">
+            {hero.heading.line2}{" "}
+            <span className="text-champagne-400">{hero.heading.line2Accent}</span>
+          </span>
         </motion.h1>
 
-        <motion.div className="mt-10 max-w-xl" {...rise(0.28)}>
-          <p className="measure text-[clamp(1rem,0.95rem+0.28vw,1.14rem)] font-light leading-[1.75] text-muted">
-            {hero.body}
-          </p>
-          <p className="measure mt-6 text-[clamp(0.94rem,0.9rem+0.2vw,1.02rem)] font-light leading-[1.7] text-faint">
-            {hero.secondary}
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="mt-14 flex flex-col items-start gap-8 sm:flex-row sm:items-center sm:gap-12"
-          {...rise(0.4)}
+        <motion.p
+          className="mt-6 max-w-[68ch] text-[clamp(0.95rem,0.9rem+0.24vw,1.05rem)] font-light leading-[1.7] text-muted"
+          {...rise(0.44)}
         >
+          {hero.body}
+        </motion.p>
+
+        <motion.p
+          className="mt-4 max-w-[66ch] text-[clamp(0.88rem,0.85rem+0.16vw,0.95rem)] font-light leading-[1.6] text-faint"
+          {...rise(0.5)}
+        >
+          {hero.secondary}
+        </motion.p>
+
+        <motion.div className="mt-8 md:mt-9" {...rise(0.56)}>
           <CtaLink href={hero.primaryCta.href}>{hero.primaryCta.label}</CtaLink>
-          <CtaLink href={hero.secondaryCta.href} variant="secondary">
-            {hero.secondaryCta.label}
-          </CtaLink>
         </motion.div>
-      </div>
 
-      <ScrollIndicator visible={introFinished} />
-    </section>
-  );
-}
-
-/**
- * A hairline that fills downward on a slow loop. Decorative and label-free in
- * the accessibility tree — the same affordance exists as the "Discover the
- * vision" link above.
- */
-function ScrollIndicator({ visible }: { visible: boolean }) {
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  return (
-    <motion.div
-      aria-hidden
-      className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 md:flex"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: visible ? 1 : 0 }}
-      transition={{ duration: 1.2, delay: visible ? 0.8 : 0 }}
-    >
-      <span className="font-sans text-[0.6rem] uppercase tracking-[0.32em] text-faint">
-        {hero.scrollHint}
-      </span>
-      <span className="relative block h-12 w-px overflow-hidden bg-ivory-100/12">
-        {prefersReducedMotion ? (
-          <span className="absolute inset-x-0 top-0 block h-4 bg-champagne-500/70" />
-        ) : (
+        <motion.a
+          href={hero.secondaryCta.href}
+          className="group mt-6 inline-flex items-center gap-3 font-sans text-[0.68rem] font-medium uppercase tracking-[0.28em] text-muted transition-colors duration-500 hover:text-champagne-300"
+          {...rise(0.62)}
+        >
+          {hero.secondaryCta.label}
+          {/* The scroll cue. A slow 3px drift — enough to read as an
+              invitation to scroll, nowhere near a bounce. */}
           <motion.span
-            className="absolute inset-x-0 top-0 block h-4 bg-champagne-500/70"
-            animate={{ y: ["-100%", "300%"] }}
+            aria-hidden
+            className="block"
+            animate={prefersReducedMotion ? undefined : { y: [0, 3, 0] }}
             transition={{
               duration: 2.8,
               repeat: Infinity,
               ease: [0.65, 0, 0.35, 1],
-              repeatDelay: 0.5,
             }}
-          />
-        )}
-      </span>
-    </motion.div>
+          >
+            ↓
+          </motion.span>
+        </motion.a>
+      </div>
+    </section>
   );
 }

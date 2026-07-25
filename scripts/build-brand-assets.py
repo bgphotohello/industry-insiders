@@ -45,10 +45,12 @@ MARK = PUBLIC / "brand" / "industry-insider-mark.svg"
 CACHE = ROOT / ".cache" / "brand-fonts"
 
 # Brand palette — keep in sync with src/app/globals.css.
-NAVY = "#061426"
-NAVY_LIFT = "rgba(16,38,66,.92)"
+NAVY = "#010816"
+NAVY_LIFT = "rgba(12,32,58,.88)"
 CHAMPAGNE = "rgba(200,161,90,"
 IVORY = "#F8F5EF"
+# The wordmark is champagne on the site, so the share card matches it.
+WORDMARK_COLOUR = "#D8B978"
 
 TAGLINE = "Relationships First. Opportunity Follows."
 WORDMARK = "INDUSTRY INSIDER"
@@ -249,11 +251,11 @@ body {{ width:1200px; height:630px; background:{NAVY}; overflow:hidden;
 .mark {{ width:212px; }}
 .word {{ margin-top:44px; font-family:'Cormorant Garamond',Georgia,serif;
   font-weight:300; font-size:56px; letter-spacing:.30em; text-indent:.30em;
-  color:{IVORY}; line-height:1; }}
+  color:{WORDMARK_COLOUR}; line-height:1; }}
 .rule {{ margin-top:34px; width:300px; height:1px;
   background:linear-gradient(to right, {gold}0) 0%, {gold}.85) 50%, {gold}0) 100%); }}
 .tag {{ margin-top:32px; font-size:17px; font-weight:300; letter-spacing:.34em;
-  text-indent:.34em; text-transform:uppercase; color:rgba(238,234,224,.66); }}
+  text-indent:.34em; text-transform:uppercase; color:rgba(216,185,120,.85); }}
 .foot {{ position:absolute; bottom:82px; left:0; right:0; display:flex;
   justify-content:center; gap:22px; align-items:center; font-size:12px;
   font-weight:500; letter-spacing:.30em; text-transform:uppercase;

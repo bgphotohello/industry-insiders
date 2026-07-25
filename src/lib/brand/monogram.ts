@@ -49,14 +49,17 @@ type Placement = {
 /**
  * The three shapes that make up the mark, positioned in the 200 x 120 viewBox.
  *
- * Left serif spans x 24 → 68, right serif spans x 132 → 176; the Texas mark is
- * centred at x=100 at ~16 units wide, leaving clear air on both sides.
+ * Left serif spans x 40 → 84, right serif spans x 116 → 160; the Texas mark is
+ * centred at x=100 at ~16 units wide, leaving 8 units of clear air either side.
+ * Close-set but never touching, per the brand direction.
  */
 export const MONOGRAM_SHAPES: Placement[] = [
-  { d: SERIF_I_GLYPH, x: 24, y: 10, scale: 1 },
-  { d: SERIF_I_GLYPH, x: 132, y: 10, scale: 1 },
-  // 16 x 16 Texas, vertically centred on the letters' optical middle.
-  { d: TEXAS_GLYPH, x: 92, y: 52, scale: 0.16 },
+  { d: SERIF_I_GLYPH, x: 40, y: 10, scale: 1 },
+  { d: SERIF_I_GLYPH, x: 116, y: 10, scale: 1 },
+  // 16 x 16 Texas, sat BELOW the optical centre. Two upright serifs with a
+  // mark on the midline read as a crossbar — as an "H". Dropping Texas to the
+  // lower third keeps the pair reading as two separate letters.
+  { d: TEXAS_GLYPH, x: 92, y: 64, scale: 0.16 },
 ];
 
 /** Texas on its own, in a 100 x 100 viewBox — used as a standalone accent. */

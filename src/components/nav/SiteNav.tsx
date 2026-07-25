@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import { BrandLogo } from "@/components/brand/BrandLogo";
 import { useIntroFinished } from "@/components/intro/IntroProvider";
+import { DiamondRule } from "@/components/ui/DiamondRule";
 import { brand, nav } from "@/content/site";
 
 /**
@@ -115,14 +116,22 @@ export function SiteNav() {
                 width={200}
                 height={120}
                 priority
-                className="h-5 w-auto md:h-6"
+                className="h-7 w-auto md:h-8"
               />
               <span className="sr-only">{brand.name} — back to top</span>
               <span
                 aria-hidden
-                className="hidden font-display text-[0.86rem] uppercase tracking-[0.34em] text-ivory-50 sm:block"
+                className="hidden font-display text-[0.72rem] font-light uppercase leading-[1.35] tracking-[0.3em] text-ivory-50 sm:block md:text-[0.78rem]"
               >
-                {brand.wordmark}
+                <span className="block">{brand.wordmarkLines[0]}</span>
+                <span className="block">
+                  {brand.wordmarkLines[1]}
+                  {brand.trademark && (
+                    <span className="align-super text-[0.6em] tracking-normal text-champagne-400">
+                      {brand.trademark}
+                    </span>
+                  )}
+                </span>
               </span>
             </a>
 
@@ -163,6 +172,10 @@ export function SiteNav() {
               Menu
             </button>
           </nav>
+
+          {/* The comp's signature divider: a hairline with a diamond set into
+              its centre, sitting directly beneath the bar. */}
+          <DiamondRule className="opacity-70" />
         </div>
       </motion.header>
 

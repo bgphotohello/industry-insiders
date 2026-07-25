@@ -10,6 +10,12 @@ production-ready interest-list form with a swappable lead destination. The
 project is structured so the authenticated member area can be added later
 without rework.
 
+The visual design follows the approved comp: a centred gold lockup over a
+drifting dust cloud, champagne carrying the hierarchy (mark, display wordmark,
+tagline, the closing phrase of each headline, numerals and labels), a four-up
+feature band, and boxed form fields under a solid champagne submit button.
+Palette values were sampled from the comp rather than eyeballed.
+
 ---
 
 ## Contents
@@ -58,13 +64,14 @@ industry-insider/
 │   │
 │   ├── components/
 │   │   ├── brand/      Monogram, BrandLogo (with fallback), TexasMark
+│   │   ├── hero/       HeroDust + hero-dust.ts (ambient gold cloud)
 │   │   ├── intro/      IntroProvider, IntroSequence, particle-field.ts
 │   │   ├── motion/     Reveal, MaskedHeading, RuleLine
 │   │   ├── nav/        SiteNav (desktop bar + mobile panel)
 │   │   ├── sections/   Hero, TheIdea, WhoItIsFor, WhatIsComing,
 │   │   │               LeadCapture, LeadForm, SiteFooter
 │   │   ├── layout/     PageShell (secondary pages)
-│   │   └── ui/         CtaLink, MicroLabel, TurnstileWidget
+│   │   └── ui/         CtaLink, MicroLabel, DiamondRule, TurnstileWidget
 │   │
 │   ├── content/
 │   │   └── site.ts                            ALL page copy lives here
@@ -224,8 +231,9 @@ block directly below. Change a hex value and the whole site follows.
 
 ```css
 :root {
-  --navy-950: #061426; /* page background */
-  --champagne-500: #c8a15a; /* primary accent */
+  --navy-950: #010816; /* page background — sampled from the design comp */
+  --navy-900: #030d1f; /* banded sections, which sit ABOVE the ground */
+  --champagne-500: #c8a15a; /* primary accent; the comp's solid button fill */
   --ivory-50: #f8f5ef; /* primary text */
   /* …semantic aliases: --text-muted, --rule, --surface, … */
 }
@@ -255,6 +263,13 @@ The file is organised section by section — `hero`, `idea`, `community`,
 `coming`, `interest`, `footer`, `nav`, `seo`. Change the text and the page
 follows; add an item to `idea.principles` or `coming.features` and a new
 editorial row renders with the right numbering and rules.
+
+Two headings are split into parts (`hero.heading`, `interest.heading`) so the
+closing phrase can carry the comp's gold italic. They are still one sentence
+to a screen reader. `brand.trademark` sets the ™ that follows the wordmark and
+tagline — set it to `""` to remove it everywhere at once. The "How did you
+hear about us?" field label is the comp's shorter wording; the longer
+"How did you hear about Industry Insider?" is noted beside it.
 
 Two things intentionally live elsewhere: the legal wording on `/privacy` and
 `/terms` (in their own page files, where counsel can review them in context),
@@ -388,6 +403,7 @@ Verified on this build, and worth re-running after any significant change.
 - [x] `prefers-reduced-motion`: no particles, simple fade, hierarchy intact
 - [x] Cumulative Layout Shift caused by the intro: **0**
 - [x] Animation pauses when the tab is hidden
+- [x] The hero dust runs at ~30fps and stops when scrolled out of view
 
 **Responsive** — checked at 375 / 768 / 1440 and wide
 

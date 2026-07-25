@@ -51,7 +51,7 @@ export function TheIdea() {
               >
                 <p
                   aria-hidden
-                  className="font-display text-[clamp(1.6rem,1.2rem+1.4vw,2.4rem)] font-light leading-none text-champagne-500/55 md:col-span-2"
+                  className="numerals-lining font-display text-[clamp(1.6rem,1.2rem+1.4vw,2.4rem)] font-light leading-none text-champagne-400/85 md:col-span-2"
                 >
                   {principle.index}
                 </p>

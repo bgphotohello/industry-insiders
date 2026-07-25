@@ -10,10 +10,15 @@
    ========================================================================== */
 
 :root {
-  /* --- Core palette ------------------------------------------------------ */
-  --navy-950: #061426;
-  --navy-900: #091b31;
-  --navy-800: #102642;
+  /* --- Core palette ------------------------------------------------------
+     Navy values are sampled from the approved design comp: the ground is an
+     exceptionally deep blue-black, with the banded sections sitting a touch
+     ABOVE it rather than below. The champagne scale matched the comp already
+     (its solid button fill reads #c4985c ≈ --champagne-500).
+     -------------------------------------------------------------------- */
+  --navy-950: #010816;
+  --navy-900: #030d1f;
+  --navy-800: #0a1b31;
   --champagne-500: #c8a15a;
   --champagne-400: #d8b978;
   --champagne-300: #e7d2a3;
@@ -27,15 +32,18 @@
   --surface-inset: var(--navy-800);
 
   /* --- Semantic text ------------------------------------------------------
-     Contrast on --navy-950 (#061426):
-       ivory-50   ~ 16.4:1   body + headings
-       text-muted ~  7.4:1   secondary copy
-       text-faint ~  4.7:1   micro-labels only, always >= 12px + tracked
-       champagne  ~  7.6:1   accents and small caps
+     Contrast on --navy-950 (#010816):
+       ivory-50   ~ 18.3:1   body + headings
+       text-muted ~  8.6:1   secondary copy
+       text-faint ~  5.3:1   micro-labels only, always >= 12px + tracked
+       champagne  ~  8.5:1   accents and small caps
+
+     Body copy in the comp reads as a cool grey (#bbbdc4) rather than dimmed
+     warm ivory, so --text-muted is mixed from a cooler base.
      -------------------------------------------------------------------- */
   --text-primary: var(--ivory-50);
-  --text-muted: rgb(238 234 224 / 0.72);
-  --text-faint: rgb(238 234 224 / 0.52);
+  --text-muted: rgb(226 230 240 / 0.74);
+  --text-faint: rgb(226 230 240 / 0.54);
   --text-accent: var(--champagne-400);
 
   /* --- Hairlines --------------------------------------------------------- */
@@ -223,6 +231,12 @@
       background-clip: text;
       color: transparent;
     }
+  }
+
+  /* Cormorant defaults to oldstyle figures, where 0 sits at x-height and
+     reads as a lowercase "o". Display numerals need lining figures. */
+  .numerals-lining {
+    font-variant-numeric: lining-nums;
   }
 
   /* Screen-reader-only, restored on focus for skip links. */

@@ -11,6 +11,10 @@ export const brand = {
   location: "Dallas–Fort Worth, Texas",
   /** Letter-by-letter reveal in the intro uses this, so keep it uppercase. */
   wordmark: "INDUSTRY INSIDER",
+  /** The display lockup sets the name on two lines, as in the design comp. */
+  wordmarkLines: ["INDUSTRY", "INSIDER"],
+  /** Set to "" to drop the trademark symbol everywhere it appears. */
+  trademark: "\u2122",
 } as const;
 
 export const nav = {
@@ -24,7 +28,15 @@ export const nav = {
 
 export const hero = {
   eyebrow: "BY PERSONAL INVITATION",
-  heading: "The right room changes everything.",
+  /**
+   * Split so the closing phrase can carry the gold italic accent from the
+   * comp. Read together it is still "The right room changes everything."
+   */
+  heading: {
+    line1: "The right room",
+    line2: "changes",
+    line2Accent: "everything.",
+  },
   body: "Industry Insider is a private professional community built around meaningful relationships, exceptional experiences, and long-term collaboration.",
   secondary:
     "Created for trusted leaders who believe opportunity follows connection.",
@@ -32,6 +44,10 @@ export const hero = {
   secondaryCta: { label: "DISCOVER THE VISION", href: "#vision" },
   scrollHint: "Scroll",
 } as const;
+
+/** Plain-text heading, for the document outline and assistive technology. */
+export const heroHeadingText =
+  `${hero.heading.line1} ${hero.heading.line2} ${hero.heading.line2Accent}`;
 
 export const idea = {
   id: "vision",
@@ -103,7 +119,8 @@ export const coming = {
 export const interest = {
   id: "interest",
   label: "BE AMONG THE FIRST",
-  heading: "The room is forming.",
+  /** Same split treatment as the hero: the closing phrase carries the gold. */
+  heading: { line1: "The room", accent: "is forming." },
   body: "Join the private interest list to receive founding announcements, event invitations, and membership information as it becomes available.",
   consent:
     "I would like to receive news, invitations, and membership information from Industry Insider.",
@@ -124,7 +141,9 @@ export const interest = {
     company: { label: "Company", autoComplete: "organization" },
     role: { label: "Professional role", autoComplete: "organization-title" },
     referral: {
-      label: "How did you hear about Industry Insider?",
+      // The design comp shortens this so it sits in the three-up row without
+      // wrapping. "How did you hear about Industry Insider?" also works.
+      label: "How did you hear about us?",
       optionalLabel: "Optional",
       autoComplete: "off",
     },

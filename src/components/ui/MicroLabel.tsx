@@ -1,16 +1,39 @@
 /**
- * Uppercase, widely tracked section label preceded by a short champagne rule.
+ * Uppercase, widely tracked section label in champagne.
  *
- * The rule is decorative; the text is real text, so section labels are
+ * Three treatments, all from the design comp:
+ *   "rule"      a short champagne rule to the left  (editorial sections)
+ *   "underline" the rule sits beneath the label     (stacked panels)
+ *   "plain"     label only                          (tight columns)
+ *
+ * The rule is always decorative; the text is real text, so section labels stay
  * announced and searchable.
  */
 export function MicroLabel({
   children,
   className,
+  variant = "rule",
 }: {
   children: React.ReactNode;
   className?: string;
+  variant?: "rule" | "underline" | "plain";
 }) {
+  if (variant === "underline") {
+    return (
+      <p className={className}>
+        <span className="u-label block">{children}</span>
+        <span
+          aria-hidden
+          className="mt-3 block h-px w-full max-w-[9rem] bg-gradient-to-r from-champagne-500/70 to-champagne-500/10"
+        />
+      </p>
+    );
+  }
+
+  if (variant === "plain") {
+    return <p className={`u-label ${className ?? ""}`}>{children}</p>;
+  }
+
   return (
     <p className={`flex items-center gap-4 ${className ?? ""}`}>
       <span
