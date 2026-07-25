@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Industry Insider — PLACEHOLDER stacked logo for DARK backgrounds.
+  Replace this file with the final vector artwork, keeping the filename.
+  The wordmark uses live text so it stays legible before final artwork arrives;
+  the production file should ship with the wordmark converted to outlines.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" width="240" height="180" role="img" aria-label="Industry Insider">
+  <g fill="#C8A15A">
+    <path transform="translate(44 10)" d="M0.5,0 H43.5 V5.4 H34.2 C29.9,5.4 27.6,9.1 27.6,14.6 V85.4 C27.6,90.9 29.9,94.6 34.2,94.6 H43.5 V100 H0.5 V94.6 H9.8 C14.1,94.6 16.4,90.9 16.4,85.4 V14.6 C16.4,9.1 14.1,5.4 9.8,5.4 H0.5 Z"/>
+    <path transform="translate(152 10)" d="M0.5,0 H43.5 V5.4 H34.2 C29.9,5.4 27.6,9.1 27.6,14.6 V85.4 C27.6,90.9 29.9,94.6 34.2,94.6 H43.5 V100 H0.5 V94.6 H9.8 C14.1,94.6 16.4,90.9 16.4,85.4 V14.6 C16.4,9.1 14.1,5.4 9.8,5.4 H0.5 Z"/>
+    <path transform="translate(112 52) scale(0.16)" d="M27.5,0.0 L50.6,0.0 L50.6,18.1 L53.6,18.1 L56.7,19.6 L58.6,21.5 L62.7,21.9 L65.0,24.3 L70.0,24.3 L71.9,24.8 L74.1,26.6 L78.7,26.2 L84.4,24.3 L91.3,26.6 L95.9,27.6 L95.9,42.2 L97.3,49.5 L98.3,55.6 L97.3,63.6 L90.9,66.8 L86.3,71.0 L77.9,75.2 L73.0,80.8 L71.1,86.9 L71.9,92.5 L70.7,98.6 L63.5,97.7 L57.4,94.4 L54.4,83.6 L48.3,76.6 L43.0,67.3 L33.1,62.1 L28.5,68.2 L25.5,70.1 L19.4,66.4 L14.8,58.9 L8.0,52.3 L1.1,44.4 L0.2,43.0 L27.5,42.1 Z"/>
+  </g>
+  <line x1="92" y1="138" x2="148" y2="138" stroke="#C8A15A" stroke-width="0.75" opacity="0.55"/>
+  <text x="118" y="166" fill="#F8F5EF" font-family="Cormorant Garamond, Bodoni Moda, Didot, Georgia, serif" font-size="15" letter-spacing="3.6" text-anchor="middle">INDUSTRY INSIDER</text>
+</svg>

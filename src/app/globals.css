@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   INDUSTRY INSIDER — DESIGN TOKENS
+
+   Every brand colour, type face and rhythm value the site uses is declared
+   here and nowhere else. To re-skin the site, change the values in :root —
+   the Tailwind utilities below are wired to them, so nothing else needs to
+   be touched.
+   ========================================================================== */
+
+:root {
+  /* --- Core palette ------------------------------------------------------ */
+  --navy-950: #061426;
+  --navy-900: #091b31;
+  --navy-800: #102642;
+  --champagne-500: #c8a15a;
+  --champagne-400: #d8b978;
+  --champagne-300: #e7d2a3;
+  --ivory-50: #f8f5ef;
+  --ivory-100: #f0eadf;
+  --ink: #091526;
+
+  /* --- Semantic surfaces ------------------------------------------------- */
+  --surface: var(--navy-950);
+  --surface-raised: var(--navy-900);
+  --surface-inset: var(--navy-800);
+
+  /* --- Semantic text ------------------------------------------------------
+     Contrast on --navy-950 (#061426):
+       ivory-50   ~ 16.4:1   body + headings
+       text-muted ~  7.4:1   secondary copy
+       text-faint ~  4.7:1   micro-labels only, always >= 12px + tracked
+       champagne  ~  7.6:1   accents and small caps
+     -------------------------------------------------------------------- */
+  --text-primary: var(--ivory-50);
+  --text-muted: rgb(238 234 224 / 0.72);
+  --text-faint: rgb(238 234 224 / 0.52);
+  --text-accent: var(--champagne-400);
+
+  /* --- Hairlines --------------------------------------------------------- */
+  --rule: rgb(200 161 90 / 0.28);
+  --rule-soft: rgb(240 234 223 / 0.12);
+
+  /* --- Motion ------------------------------------------------------------
+     A single restrained easing vocabulary. Nothing bounces, nothing
+     overshoots.                                                            */
+  --ease-out-refined: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-refined: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@theme inline {
+  --color-navy-950: var(--navy-950);
+  --color-navy-900: var(--navy-900);
+  --color-navy-800: var(--navy-800);
+  --color-champagne-500: var(--champagne-500);
+  --color-champagne-400: var(--champagne-400);
+  --color-champagne-300: var(--champagne-300);
+  --color-ivory-50: var(--ivory-50);
+  --color-ivory-100: var(--ivory-100);
+  --color-ink: var(--ink);
+
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-inset: var(--surface-inset);
+
+  --color-primary: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-accent: var(--text-accent);
+
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+
+  /* Type families are injected by next/font in app/layout.tsx. The literal
+     stacks are the graceful fallback if a font ever fails to load. */
+  --font-display: var(--font-cormorant), "Bodoni Moda", Didot, "Times New Roman",
+    Georgia, serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Fixed nav offset so anchor jumps never hide a heading under the bar. */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--surface);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Locks scrolling while the intro is on screen, without the layout shift a
+     display:none / overflow toggle on <body> would cause. */
+  body[data-intro-active="true"] {
+    overflow: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: rgb(200 161 90 / 0.28);
+    color: var(--ivory-50);
+  }
+
+  /* Visible, on-brand focus ring for every interactive element. */
+  :focus-visible {
+    outline: 1px solid var(--champagne-400);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  /* Only removes the ring where a custom one is drawn by the component. */
+  .focus-ring-custom:focus-visible {
+    outline: none;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Chrome/Safari autofill would otherwise repaint fields pale blue. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--ivory-50);
+    -webkit-box-shadow: 0 0 0 1000px var(--navy-900) inset;
+    caret-color: var(--ivory-50);
+    transition: background-color 9999s ease-out;
+  }
+}
+
+/* ==========================================================================
+   COMPONENT PRIMITIVES
+   ========================================================================== */
+
+@layer components {
+  /* Uppercase micro-label. Never below 0.7rem, always widely tracked. */
+  .u-label {
+    font-family: var(--font-sans);
+    font-size: clamp(0.7rem, 0.66rem + 0.18vw, 0.78rem);
+    font-weight: 500;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+  }
+
+  /* Editorial measure. Long-form copy never exceeds a comfortable line. */
+  .measure {
+    max-width: 62ch;
+  }
+
+  .measure-tight {
+    max-width: 46ch;
+  }
+
+  /* Page gutter, consistent across every section. */
+  .shell {
+    width: 100%;
+    max-width: 82rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.5rem, 1rem + 3vw, 5rem);
+  }
+
+  /* Thin champagne rule used to divide editorial rows. */
+  .hairline {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      to right,
+      rgb(200 161 90 / 0.42),
+      rgb(200 161 90 / 0.08)
+    );
+  }
+}
+
+/* ==========================================================================
+   UTILITIES
+   ========================================================================== */
+
+@layer utilities {
+  /* Restrained metallic treatment for very small accents only. Degrades to a
+     flat champagne fill where background-clip:text is unsupported. */
+  .text-metal {
+    color: var(--champagne-400);
+  }
+
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .text-metal {
+      background-image: linear-gradient(
+        104deg,
+        var(--champagne-500) 0%,
+        var(--champagne-300) 42%,
+        var(--champagne-500) 78%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  /* Screen-reader-only, restored on focus for skip links. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+
+   The site must remain fully legible and hierarchical with all motion off.
+   Reveal components handle this in JS; this is the belt-and-braces backstop
+   for anything CSS-driven.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /*
+    Backstop for every scroll-reveal on the site.
+
+    The reveal components already render a static version when the preference
+    is set, but that depends on JavaScript running and on the media query being
+    read at the right moment. This rule does not: whatever the script does,
+    revealed content is at its final, visible state for anyone who asked for
+    less motion.
+  */
+  [data-motion-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
