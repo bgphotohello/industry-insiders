@@ -5,6 +5,7 @@ import { usePrefersReducedMotion } from "@/lib/hooks/usePrefersReducedMotion";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { BRAND_FILES, BrandLogo } from "@/components/brand/BrandLogo";
+import { IntroDoors } from "./IntroDoors";
 import { brand } from "@/content/site";
 import { createParticleField, type ParticleFieldHandle } from "./particle-field";
 
@@ -240,6 +241,11 @@ export function IntroSequence({ onComplete }: { onComplete: () => void }) {
                 "radial-gradient(120% 90% at 50% 42%, rgba(16,38,66,0.85) 0%, rgba(6,20,38,0) 62%)",
             }}
           />
+
+          {/* The doors open across the dust's drift phase, then dissolve as
+              the crisp mark arrives. Renders nothing until the video files are
+              added, and never on a repeat visit or under reduced motion. */}
+          {mode === "full" && <IntroDoors fadeOut={showMark} />}
 
           {mode === "full" && (
             <canvas
