@@ -47,15 +47,8 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="relative flex min-h-[100svh] items-center overflow-hidden pb-14 pt-20 md:pb-16 md:pt-24"
     >
-      {/* Atmosphere: one soft navy lift, then the dust. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(105% 75% at 50% 34%, rgba(12,32,58,0.60) 0%, rgba(1,8,22,0) 62%)",
-        }}
-      />
+      {/* Atmosphere is the page-level AmbientGlow, which starts here and travels
+          down as you scroll; the hero adds only the dust. */}
       <HeroDust />
 
       <div className="shell relative flex w-full flex-col items-center text-center">

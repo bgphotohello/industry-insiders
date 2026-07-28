@@ -447,6 +447,18 @@ Verified on this build, and worth re-running after any significant change.
 - [x] Animation pauses when the tab is hidden
 - [x] The hero dust runs at ~30fps and stops when scrolled out of view
 
+**Ambience**
+
+- [x] One page-level navy light, descending as you scroll and leaning about
+      once per section
+- [x] Static and centred under `prefers-reduced-motion`, including if the
+      preference resolves after a scroll has already happened
+- [x] Hero dust gathers towards the cursor — measured at ~40% more dust within
+      110px of the pointer — and eases back over about half a second
+- [x] No magnetism on a coarse pointer or under reduced motion
+- [x] Scroll handler is passive and rAF-throttled; it skips the write when the
+      rounded position has not changed
+
 **Media**
 
 - [x] The door clip autoplays muted and inline, and holds no audio track

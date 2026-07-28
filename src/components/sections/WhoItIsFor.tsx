@@ -28,16 +28,6 @@ export function WhoItIsFor() {
         position="50% 42%"
       />
 
-      {/* A single soft lift keeps the long middle of the page from flattening. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(80% 60% at 78% 34%, rgba(16,38,66,0.55) 0%, rgba(6,20,38,0) 70%)",
-        }}
-      />
-
       <div className="shell relative grid gap-14 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <Reveal>

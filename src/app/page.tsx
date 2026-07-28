@@ -1,5 +1,6 @@
 import { IntroProvider } from "@/components/intro/IntroProvider";
 import { SiteNav } from "@/components/nav/SiteNav";
+import { AmbientGlow } from "@/components/ui/AmbientGlow";
 import { Hero } from "@/components/sections/Hero";
 import { LeadCapture } from "@/components/sections/LeadCapture";
 import { SiteFooter } from "@/components/sections/SiteFooter";
@@ -31,6 +32,10 @@ export default function HomePage() {
       >
         Skip to content
       </a>
+
+      {/* First in the DOM and fixed, so every positioned section that follows
+          paints over it. One light for the page, travelling as you scroll. */}
+      <AmbientGlow />
 
       <SiteNav />
 

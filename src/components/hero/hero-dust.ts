@@ -11,12 +11,29 @@
  *   - paused when the tab is hidden AND when the hero scrolls out of view
  *   - device pixel ratio capped, particle count scaled to the viewport
  *   - with prefers-reduced-motion it paints a single still frame and stops
+ *
+ * It is also lightly magnetic: motes near the cursor lean towards it and ease
+ * back when it leaves. Deliberately weak and slow — the brief's image is fine
+ * gold dust being drawn by a magnet, not particles snapping to a pointer, and
+ * anything springier reads as a tech demo. Fine pointers only, so a touch
+ * screen never gets a ghost cursor pulling at the cloud.
  */
 
 const TONES = ["200,161,90", "216,185,120", "231,210,163"] as const;
 
 /** ~30fps. */
 const FRAME_MS = 33;
+
+/** How far the cursor's pull reaches, in CSS pixels. */
+const MAGNET_RADIUS = 260;
+/** The furthest a mote will lean towards the cursor, in CSS pixels. */
+const MAGNET_REACH = 26;
+/**
+ * Per-frame easing towards the target lean. Low enough that the cloud gathers
+ * over roughly half a second and drifts back over about the same — the lag is
+ * what makes it read as dust rather than as a cursor effect.
+ */
+const MAGNET_EASE = 0.06;
 
 type Mote = {
   /** Position within the cloud's local (unrotated) ellipse space, -1 … 1. */
@@ -28,6 +45,11 @@ type Mote = {
   size: number;
   alpha: number;
   tone: number;
+  /** Current lean towards the cursor, in CSS pixels. Eased, never jumped. */
+  pullX: number;
+  pullY: number;
+  /** 0–1. Scales this mote's response, so the cloud does not move as a slab. */
+  susceptibility: number;
 };
 
 function createRandom(seed: number) {
@@ -78,6 +100,18 @@ export function createHeroDust(
   let lastFrame = 0;
   let onScreen = true;
   let destroyed = false;
+  /**
+   * Cursor position. Held in viewport coordinates and converted to canvas-local
+   * once per frame inside draw(), rather than on every pointermove — the canvas
+   * scrolls, so its box has to be re-read anyway, and one layout read per frame
+   * is far cheaper than one per mouse event.
+   */
+  let pointerClientX = 0;
+  let pointerClientY = 0;
+  let pointerSeen = false;
+  let pointerX = 0;
+  let pointerY = 0;
+  let pointerLive = false;
   /** Global brightness trim; the cloud sits behind the type on small screens. */
   let alphaScale = 1;
 
@@ -127,6 +161,12 @@ export function createHeroDust(
         size: 0.45 + random() * 1.15,
         alpha: (0.26 + random() * 0.74) * (1 - radius * 0.62),
         tone: index % TONES.length,
+        pullX: 0,
+        pullY: 0,
+        // Lighter motes answer the magnet more readily than heavier ones. Giving
+        // every mote the same response would slide the whole cloud sideways as
+        // one piece, which looks like a moving image rather than moving dust.
+        susceptibility: 0.35 + random() * 0.65,
       };
     });
   }
@@ -134,6 +174,19 @@ export function createHeroDust(
   function draw() {
     ctx.clearRect(0, 0, width, height);
     ctx.globalCompositeOperation = "lighter";
+
+    if (pointerSeen) {
+      const box = canvas.getBoundingClientRect();
+      pointerX = pointerClientX - box.left;
+      pointerY = pointerClientY - box.top;
+      // Keep pulling for one radius beyond the canvas so the cloud reacts as
+      // the cursor approaches the hero, and releases smoothly as it leaves.
+      pointerLive =
+        pointerX > -MAGNET_RADIUS &&
+        pointerY > -MAGNET_RADIUS &&
+        pointerX < width + MAGNET_RADIUS &&
+        pointerY < height + MAGNET_RADIUS;
+    }
 
     const seconds = elapsed / 1000;
     const cos = Math.cos(angle);
@@ -148,8 +201,32 @@ export function createHeroDust(
 
       const localX = u * radiusLong;
       const localY = v * radiusShort;
-      const x = centreX + localX * cos - localY * sin;
-      const y = centreY + localX * sin + localY * cos;
+      const driftX = centreX + localX * cos - localY * sin;
+      const driftY = centreY + localX * sin + localY * cos;
+
+      // The magnet. Target lean is computed from where the mote would be
+      // without any pull, so the attraction can never feed back on itself and
+      // drag a mote away for good.
+      let targetX = 0;
+      let targetY = 0;
+      if (pointerLive) {
+        const dx = pointerX - driftX;
+        const dy = pointerY - driftY;
+        const distance = Math.hypot(dx, dy);
+        if (distance < MAGNET_RADIUS && distance > 0.001) {
+          // Squared falloff: strong close in, gone well before the edge, so
+          // there is no visible boundary where the effect switches off.
+          const falloff = 1 - distance / MAGNET_RADIUS;
+          const strength = falloff * falloff * mote.susceptibility;
+          targetX = (dx / distance) * MAGNET_REACH * strength;
+          targetY = (dy / distance) * MAGNET_REACH * strength;
+        }
+      }
+      mote.pullX += (targetX - mote.pullX) * MAGNET_EASE;
+      mote.pullY += (targetY - mote.pullY) * MAGNET_EASE;
+
+      const x = driftX + mote.pullX;
+      const y = driftY + mote.pullY;
 
       // Fade at the wrap seam so nothing pops in or out.
       const edge = Math.min(1, (1 - Math.abs(u)) * 4);
@@ -230,6 +307,25 @@ export function createHeroDust(
   const onVisibility = () => sync();
   document.addEventListener("visibilitychange", onVisibility);
 
+  // Magnetism, on a fine pointer only. A coarse pointer has no hover state, so
+  // the pull would only ever fire on a tap — a stray tug with no cause on
+  // screen. Better to leave the cloud drifting.
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+  const onPointerMove = (event: PointerEvent) => {
+    pointerClientX = event.clientX;
+    pointerClientY = event.clientY;
+    pointerSeen = true;
+  };
+  const releasePointer = () => {
+    pointerLive = false;
+    pointerSeen = false;
+  };
+  if (finePointer) {
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.addEventListener("pointerleave", releasePointer);
+    window.addEventListener("blur", releasePointer);
+  }
+
   let resizeTimer = 0;
   const onResize = () => {
     window.clearTimeout(resizeTimer);
@@ -248,6 +344,9 @@ export function createHeroDust(
       observer.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("pointerleave", releasePointer);
+      window.removeEventListener("blur", releasePointer);
       ctx.clearRect(0, 0, width, height);
     },
   };
