@@ -43,14 +43,22 @@ industry-insider/
 │   │   ├── industry-insider-mark.svg          ← monogram (REPLACE)
 │   │   ├── industry-insider-logo.svg          ← stacked lockup, dark bg (REPLACE)
 │   │   ├── industry-insider-logo-light.svg    ← stacked lockup, light bg (REPLACE)
-│   │   └── apple-touch-icon.png               180×180, generated
+│   │   ├── apple-touch-icon.png               180×180, generated
+│   │   ├── doors-open-intro.mp4 / .webm       intro clip, generated
+│   │   ├── doors-open-poster.jpg              intro poster frame, generated
+│   │   ├── doors-open-bg.jpg / .webp          backdrop, generated
+│   │   └── gathering.jpg / .webp              backdrop, generated
 │   ├── og/
 │   │   └── industry-insider-og.png            1200×630 share card, generated
 │   ├── favicon.svg
 │   └── favicon.ico
 │
+├── assets/
+│   └── source/                                photo/video masters, NOT served
+│
 ├── scripts/
-│   └── build-brand-assets.py                  regenerates the PNG/ICO assets
+│   ├── build-brand-assets.py                  regenerates the PNG/ICO assets
+│   └── build-media-assets.sh                  regenerates the video and photos
 │
 ├── src/
 │   ├── app/
@@ -220,6 +228,40 @@ Two files still want a human eye afterwards:
 If a brand file is missing entirely, `BrandLogo` catches the load error and
 renders the inline monogram at identical dimensions — no broken image, no
 layout shift.
+
+### Photography and video
+
+Masters live in `assets/source/` and are never served. Everything the browser
+loads is generated from them:
+
+```bash
+npm run media:assets
+```
+
+| Master                                             | Becomes                                                            | Used by       |
+| -------------------------------------------------- | ------------------------------------------------------------------ | ------------- |
+| `doors-open-intro.mp4` (6.1 MB)                    | `doors-open-intro.mp4` + `.webm` + `doors-open-poster.jpg` (~290 KB) | the intro     |
+| `doors-open-bg.png` (1.3 MB)                       | `doors-open-bg.jpg` + `.webp` (~100 KB)                             | the interest section |
+| `exclusive-dinner-party-networking.png` (1.6 MB)   | `gathering.jpg` + `.webp` (~160 KB)                                 | the community section |
+
+The script needs ffmpeg with `libx264`, `libvpx-vp9` and `libwebp`; set
+`FFMPEG=/path/to/ffmpeg` if the one on `PATH` is a cut-down build. Like
+`brand:assets`, it never runs during `npm run build` — commit its output.
+
+To swap an image, drop a replacement into `assets/source/` under the same
+filename and re-run the script. To swap the intro clip, keep it around five
+seconds so it still lands with the end of the sequence.
+
+**Two rules these images are held to.** They are dark, low in opacity and under
+a navy scrim so they read as atmosphere behind the type, and nothing on the
+page captions them or presents them as a record of an event that has happened.
+The community has not met yet; the site does not imply otherwise.
+
+The intro clip is an enhancement and never a dependency. A missing file, a
+decode error, a refused autoplay or a Data Saver preference all drop the video
+layer silently and the dust sequence plays exactly as it does without it. It is
+also skipped entirely on repeat visits within a session and under
+`prefers-reduced-motion`, so nothing is downloaded in either case.
 
 ---
 
@@ -405,6 +447,18 @@ Verified on this build, and worth re-running after any significant change.
 - [x] Animation pauses when the tab is hidden
 - [x] The hero dust runs at ~30fps and stops when scrolled out of view
 
+**Media**
+
+- [x] The door clip autoplays muted and inline, and holds no audio track
+- [x] It opens across the whole sequence and recedes behind the mark rather
+      than cutting out
+- [x] First visit fetches one 180 KB WebM; repeat visits fetch nothing
+- [x] No video element exists under `prefers-reduced-motion` or Data Saver
+- [x] A missing or unplayable file drops the layer with the intro intact
+- [x] Photographic backdrops stay behind a scrim; all copy over them is legible
+      at 375 and 1440
+- [x] CLS with the video and both backdrops loading: **0**
+
 **Responsive** — checked at 375 / 768 / 1440 and wide
 
 - [x] No horizontal overflow at any width
@@ -433,7 +487,8 @@ Verified on this build, and worth re-running after any significant change.
 
 **Before launch**
 
-- [ ] Replace the three brand SVGs and run `npm run brand:assets`
+- [ ] Replace the two stacked lockups, which still carry placeholder geometry,
+      and run `npm run brand:assets`
 - [ ] Set `NEXT_PUBLIC_SITE_URL` to the production domain
 - [ ] Choose and configure `LEAD_CAPTURE_PROVIDER`, then submit a real test lead
 - [ ] Have counsel review `/privacy` and `/terms`

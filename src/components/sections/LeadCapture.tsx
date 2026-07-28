@@ -1,6 +1,7 @@
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { MicroLabel } from "@/components/ui/MicroLabel";
+import { SectionBackdrop } from "@/components/ui/SectionBackdrop";
 import { interest } from "@/content/site";
 import { getTurnstileSiteKey } from "@/lib/security/turnstile";
 
@@ -26,10 +27,19 @@ export function LeadCapture() {
       aria-labelledby="interest-heading"
       className="relative overflow-hidden border-t border-rule-soft py-20 md:py-28"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-navy-900/50"
+      {/* The page opens on doors parting and closes on the same doors, still
+          shut, with light at the seam. The invitation is the way through. */}
+      {/* No flat navy panel over this one — the section already carries a
+          full-bleed scrim of its own, and stacking a second wash on top sank
+          the doors to the point of being invisible. */}
+      <SectionBackdrop
+        src="doors-open-bg"
+        opacity={0.5}
+        mobileOpacity={0.26}
+        position="50% 42%"
+        scrim="linear-gradient(to bottom, rgb(1 8 22) 0%, rgb(1 8 22 / 0.5) 34%, rgb(1 8 22 / 0.58) 68%, rgb(1 8 22) 100%)"
       />
+
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"

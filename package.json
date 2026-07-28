@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "brand:assets": "python3 scripts/build-brand-assets.py"
+    "brand:assets": "python3 scripts/build-brand-assets.py",
+    "media:assets": "bash scripts/build-media-assets.sh"
   },
   "dependencies": {
     "motion": "^12.23.24",

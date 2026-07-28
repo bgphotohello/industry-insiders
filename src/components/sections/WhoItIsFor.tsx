@@ -1,6 +1,7 @@
 import { MaskedHeading } from "@/components/motion/MaskedHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { MicroLabel } from "@/components/ui/MicroLabel";
+import { SectionBackdrop } from "@/components/ui/SectionBackdrop";
 import { community } from "@/content/site";
 
 /**
@@ -15,8 +16,18 @@ export function WhoItIsFor() {
     <section
       id={community.id}
       aria-labelledby="community-heading"
-      className="relative border-t border-rule-soft py-24 md:py-36 lg:py-44"
+      className="relative overflow-hidden border-t border-rule-soft py-24 md:py-36 lg:py-44"
     >
+      {/* Atmosphere for the audience description — a warm room, sunk almost to
+          navy. It is not a photograph of an Industry Insider evening and is
+          never presented as one; it is texture behind the type. */}
+      <SectionBackdrop
+        src="gathering"
+        opacity={0.2}
+        mobileOpacity={0.14}
+        position="50% 42%"
+      />
+
       {/* A single soft lift keeps the long middle of the page from flattening. */}
       <div
         aria-hidden
