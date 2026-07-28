@@ -133,17 +133,18 @@ export function createHeroDust(
     canvas.height = Math.round(height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    // On wide screens the cloud sits in the left third, clear of the centred
-    // lockup. On narrow screens it drops behind the whole hero at low density,
-    // where there is no room beside the type.
-    centreX = isNarrow ? width * 0.5 : width * 0.22;
-    centreY = isNarrow ? height * 0.34 : height * 0.52;
-    radiusLong = isNarrow ? width * 0.7 : width * 0.4;
-    radiusShort = isNarrow ? height * 0.28 : width * 0.235;
+    // The cloud is centred, sitting behind the lockup rather than beside it.
+    // It used to sit in the left third to stay clear of the type; centred reads
+    // better, but only once it is spread wide and dimmed — a tight, bright core
+    // directly behind gold serif type turns it to mush.
+    centreX = width * 0.5;
+    centreY = isNarrow ? height * 0.34 : height * 0.46;
+    radiusLong = isNarrow ? width * 0.7 : width * 0.52;
+    radiusShort = isNarrow ? height * 0.28 : width * 0.3;
 
-    // On narrow screens the cloud has nowhere to go but behind the lockup, so
-    // it is dimmed to a shimmer rather than competing with gold type.
-    alphaScale = isNarrow ? 0.5 : 1;
+    // Dimmed wherever the cloud has to share space with the lockup, which is
+    // now both breakpoints.
+    alphaScale = isNarrow ? 0.5 : 0.72;
 
     const count = isNarrow ? 120 : Math.min(520, Math.round(width * 0.34));
 
