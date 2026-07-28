@@ -34,10 +34,10 @@ export function LeadCapture() {
           the doors to the point of being invisible. */}
       <SectionBackdrop
         src="doors-open-bg"
-        opacity={0.5}
-        mobileOpacity={0.26}
+        opacity={0.66}
+        mobileOpacity={0.36}
         position="50% 42%"
-        scrim="linear-gradient(to bottom, rgb(1 8 22) 0%, rgb(1 8 22 / 0.5) 34%, rgb(1 8 22 / 0.58) 68%, rgb(1 8 22) 100%)"
+        scrim="linear-gradient(to bottom, rgb(1 8 22) 0%, rgb(1 8 22 / 0.38) 34%, rgb(1 8 22 / 0.46) 68%, rgb(1 8 22) 100%)"
       />
 
       <div

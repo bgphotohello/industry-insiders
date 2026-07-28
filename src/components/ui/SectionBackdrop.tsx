@@ -43,7 +43,7 @@ type SectionBackdropProps = {
 };
 
 const DEFAULT_SCRIM =
-  "linear-gradient(to bottom, rgb(1 8 22) 0%, rgb(1 8 22 / 0.55) 38%, rgb(1 8 22 / 0.6) 62%, rgb(1 8 22) 100%)";
+  "linear-gradient(to bottom, rgb(1 8 22) 0%, rgb(1 8 22 / 0.4) 38%, rgb(1 8 22 / 0.46) 62%, rgb(1 8 22) 100%)";
 
 export function SectionBackdrop({
   src,

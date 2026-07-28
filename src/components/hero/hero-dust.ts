@@ -36,10 +36,17 @@ const MAGNET_REACH = 26;
 const MAGNET_EASE = 0.06;
 
 type Mote = {
-  /** Position within the cloud's local (unrotated) ellipse space, -1 … 1. */
-  u: number;
-  v: number;
-  drift: number;
+  /** Starting angle around the cloud centre, in radians. */
+  theta: number;
+  /** Distance from the centre, 0 … 1, in the cloud's local circle space. */
+  radius: number;
+  /**
+   * Angular velocity, radians per second. Scaled by 1/radius so inner motes
+   * come round faster than outer ones, the way a galaxy turns. A single shared
+   * rate makes the cloud rotate like a turntable, which reads as a spinning
+   * image rather than as drifting dust.
+   */
+  spin: number;
   wobble: number;
   phase: number;
   size: number;
@@ -146,17 +153,23 @@ export function createHeroDust(
     // now both breakpoints.
     alphaScale = isNarrow ? 0.5 : 0.72;
 
-    const count = isNarrow ? 120 : Math.min(520, Math.round(width * 0.34));
+    const count = isNarrow ? 132 : Math.min(572, Math.round(width * 0.374));
 
     motes = Array.from({ length: count }, (_, index) => {
-      // sqrt() keeps the density even across the disc; the extra power pulls a
-      // dense core into the middle with a thinning halo, as in the comp.
-      const radius = Math.pow(random(), 2.4);
-      const theta = random() * Math.PI * 2;
+      // A clear void in the middle, then a band that thins outwards.
+      //
+      // The old profile packed motes right up to radius 0. That was fine when
+      // they slid past on a diagonal, but motes at the centre of an orbit
+      // barely travel, so the core became a stationary bright smudge sitting on
+      // the tagline. Holding everything out past 0.2 keeps every mote visibly
+      // circling, and leaves the lockup sitting in clear space.
+      const radius = 0.2 + Math.pow(random(), 1.7) * 0.8;
       return {
-        u: Math.cos(theta) * radius,
-        v: Math.sin(theta) * radius,
-        drift: 0.006 + random() * 0.02,
+        theta: random() * Math.PI * 2,
+        radius,
+        // Roughly 40s for an inner orbit out to 90s at the rim, with a little
+        // per-mote variation so the cloud never settles into visible rings.
+        spin: (0.082 + random() * 0.024) / (0.45 + radius * 0.85),
         wobble: 0.5 + random() * 1.6,
         phase: random() * Math.PI * 2,
         size: 0.45 + random() * 1.15,
@@ -194,11 +207,15 @@ export function createHeroDust(
     const sin = Math.sin(angle);
 
     for (const mote of motes) {
-      // Slide along the long axis and wrap, so the cloud is always moving but
-      // never drains.
-      let u = mote.u + seconds * mote.drift;
-      u = ((u + 1) % 2) - 1;
-      const v = mote.v + Math.sin(seconds * 0.12 + mote.phase) * 0.03 * mote.wobble;
+      // Each mote circles the centre. Because the local circle is then squashed
+      // into an ellipse and tilted, the orbits read as slow rotation seen at an
+      // angle rather than as flat spinning.
+      const spun = mote.theta + seconds * mote.spin;
+      // A slight radial breath keeps the orbits from looking like fixed tracks.
+      const breathed =
+        mote.radius * (1 + Math.sin(seconds * 0.14 + mote.phase) * 0.05 * mote.wobble);
+      const u = Math.cos(spun) * breathed;
+      const v = Math.sin(spun) * breathed;
 
       const localX = u * radiusLong;
       const localY = v * radiusShort;
@@ -229,8 +246,10 @@ export function createHeroDust(
       const x = driftX + mote.pullX;
       const y = driftY + mote.pullY;
 
-      // Fade at the wrap seam so nothing pops in or out.
-      const edge = Math.min(1, (1 - Math.abs(u)) * 4);
+      // Soften the rim so the cloud has no hard outer boundary. Orbits do not
+      // wrap, so unlike the old linear drift there is no seam to hide — this is
+      // purely about the silhouette.
+      const edge = Math.max(0, Math.min(1, (1 - breathed) * 3.4));
       const twinkle = 0.78 + Math.sin(seconds * 0.5 + mote.phase * 2) * 0.22;
       const alpha = mote.alpha * edge * twinkle * alphaScale;
       if (alpha <= 0.004) continue;
