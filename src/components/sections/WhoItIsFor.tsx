@@ -23,8 +23,8 @@ export function WhoItIsFor() {
           never presented as one; it is texture behind the type. */}
       <SectionBackdrop
         src="gathering"
-        opacity={0.42}
-        mobileOpacity={0.28}
+        opacity={0.55}
+        mobileOpacity={0.36}
         position="50% 42%"
       />
 
