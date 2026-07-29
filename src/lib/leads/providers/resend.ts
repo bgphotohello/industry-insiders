@@ -57,6 +57,8 @@ export function createResendProvider(config: {
                 <table style="border-collapse:collapse;width:100%">
                   ${row("Name", fullName)}
                   ${row("Email", lead.email)}
+                  ${row("Cell phone", lead.phone)}
+                  ${row("TREC #", lead.trecNumber)}
                   ${row("Company", lead.company)}
                   ${row("Role", lead.role)}
                   ${row("Heard via", lead.referral)}

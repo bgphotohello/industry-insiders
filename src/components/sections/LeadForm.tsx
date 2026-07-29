@@ -19,6 +19,8 @@ const EMPTY_VALUES: LeadFormValues = {
   firstName: "",
   lastName: "",
   email: "",
+  phone: "",
+  trecNumber: "",
   company: "",
   role: "",
   referral: "",
@@ -40,6 +42,8 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
     register,
     handleSubmit,
     setError,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<LeadFormValues>({
     resolver: createZodResolver<LeadFormValues>(leadSchema),
@@ -66,6 +70,8 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
       formData.set("firstName", values.firstName ?? "");
       formData.set("lastName", values.lastName ?? "");
       formData.set("email", values.email ?? "");
+      formData.set("phone", values.phone ?? "");
+      formData.set("trecNumber", values.trecNumber ?? "");
       formData.set("company", values.company ?? "");
       formData.set("role", values.role ?? "");
       formData.set("referral", values.referral ?? "");
@@ -136,16 +142,32 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
           autoComplete={interest.fields.email.autoComplete}
         />
         <Field
+          label={interest.fields.phone.label}
+          type="tel"
+          inputMode="tel"
+          error={errors.phone?.message}
+          {...register("phone")}
+          autoComplete={interest.fields.phone.autoComplete}
+        />
+        <Field
+          label={interest.fields.trecNumber.label}
+          hint={interest.fields.trecNumber.hintLabel}
+          error={errors.trecNumber?.message}
+          {...register("trecNumber")}
+          autoComplete={interest.fields.trecNumber.autoComplete}
+        />
+        <Field
           label={interest.fields.company.label}
           error={errors.company?.message}
           {...register("company")}
           autoComplete={interest.fields.company.autoComplete}
         />
-        <Field
-          label={interest.fields.role.label}
+        <RoleGroup
+          value={watch("role") ?? ""}
+          onChange={(next) =>
+            setValue("role", next, { shouldValidate: true, shouldDirty: true })
+          }
           error={errors.role?.message}
-          {...register("role")}
-          autoComplete={interest.fields.role.autoComplete}
         />
         <Field
           label={interest.fields.referral.label}
@@ -153,7 +175,7 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
           error={errors.referral?.message}
           {...register("referral")}
           autoComplete={interest.fields.referral.autoComplete}
-          className="sm:col-span-2 lg:col-span-1"
+          className="sm:col-span-2 lg:col-span-3"
         />
       </div>
 
@@ -286,7 +308,7 @@ function Field({ label, hint, error, className, ...props }: FieldProps) {
       <div className="flex items-baseline justify-between gap-4">
         <label
           htmlFor={id}
-          className="font-sans text-[0.68rem] font-medium uppercase tracking-[0.24em] text-faint"
+          className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted"
         >
           {label}
         </label>
@@ -318,6 +340,85 @@ function Field({ label, hint, error, className, ...props }: FieldProps) {
         </p>
       )}
     </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+
+/**
+ * "Professional role" as a checkbox group — more than one may apply, so this
+ * is deliberately not a dropdown. The selection is stored in the single
+ * `role` form value as a comma-joined string ("Realtor, Broker"), so the
+ * schema, the server action, and every delivery provider stay unchanged.
+ */
+function RoleGroup({
+  value,
+  onChange,
+  error,
+}: {
+  value: string;
+  onChange: (next: string) => void;
+  error?: string;
+}) {
+  const id = useId();
+  const errorId = `${id}-error`;
+  const selected = value ? value.split(", ") : [];
+
+  const toggle = (option: string) => {
+    const next = selected.includes(option)
+      ? selected.filter((item) => item !== option)
+      : [...selected, option];
+    // Join in display order, not click order.
+    onChange(
+      interest.fields.role.options
+        .filter((entry) => next.includes(entry))
+        .join(", "),
+    );
+  };
+
+  return (
+    <fieldset
+      className="sm:col-span-2 lg:col-span-3"
+      aria-describedby={error ? errorId : undefined}
+    >
+      <legend className="flex w-full items-baseline justify-between gap-4">
+        <span className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-muted">
+          {interest.fields.role.label}
+        </span>
+        <span className="font-sans text-[0.64rem] uppercase tracking-[0.2em] text-faint/70">
+          {interest.fields.role.hintLabel}
+        </span>
+      </legend>
+
+      <div className="mt-4 flex flex-wrap gap-x-10 gap-y-4">
+        {interest.fields.role.options.map((option) => (
+          <label
+            key={option}
+            className="flex cursor-pointer items-center gap-3"
+          >
+            <input
+              type="checkbox"
+              checked={selected.includes(option)}
+              onChange={() => toggle(option)}
+              className="h-4 w-4 shrink-0 cursor-pointer appearance-none border border-champagne-500/50 bg-transparent transition-colors duration-300 checked:border-champagne-400 checked:bg-champagne-500/80 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-champagne-400"
+            />
+            <span className="text-[0.95rem] font-light text-ivory-50">
+              {option}
+            </span>
+          </label>
+        ))}
+      </div>
+
+      {error && (
+        <p
+          id={errorId}
+          role="alert"
+          className="mt-2 text-[0.8rem] font-light leading-[1.5] text-champagne-300"
+        >
+          {error}
+        </p>
+      )}
+    </fieldset>
   );
 }
 

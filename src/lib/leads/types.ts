@@ -8,6 +8,9 @@ export type LeadRecord = {
   firstName: string;
   lastName: string;
   email: string;
+  phone: string;
+  /** TREC license number, or "NA" when the person is not a realtor. */
+  trecNumber: string;
   company: string;
   role: string;
   referral: string;
@@ -40,6 +43,8 @@ export function toLeadRecord(input: LeadInput, source: string): LeadRecord {
     firstName: input.firstName,
     lastName: input.lastName,
     email: input.email,
+    phone: input.phone,
+    trecNumber: input.trecNumber,
     company: input.company,
     role: input.role,
     referral: input.referral,

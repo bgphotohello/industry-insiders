@@ -138,8 +138,18 @@ export const interest = {
     firstName: { label: "First name", autoComplete: "given-name" },
     lastName: { label: "Last name", autoComplete: "family-name" },
     email: { label: "Email address", autoComplete: "email" },
+    phone: { label: "Cell phone", autoComplete: "tel" },
+    trecNumber: {
+      label: "TREC license #",
+      hintLabel: "NA if not a realtor",
+      autoComplete: "off",
+    },
     company: { label: "Company", autoComplete: "organization" },
-    role: { label: "Professional role", autoComplete: "organization-title" },
+    role: {
+      label: "Professional role",
+      hintLabel: "Select all that apply",
+      options: ["Realtor", "Broker", "Industry Partner"],
+    },
     referral: {
       // The design comp shortens this so it sits in the three-up row without
       // wrapping. "How did you hear about Industry Insider?" also works.
@@ -153,6 +163,7 @@ export const interest = {
 export const footer = {
   links: [
     { label: "Privacy", href: "/privacy" },
+    { label: "Cookies", href: "/cookies" },
     { label: "Terms", href: "/terms" },
     { label: "Contact", href: "/contact" },
   ],

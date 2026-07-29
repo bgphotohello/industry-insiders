@@ -27,9 +27,31 @@ export const leadSchema = z.object({
     .pipe(z.string().min(1, "Please enter your email address."))
     .pipe(z.email("Please enter a valid email address."))
     .pipe(z.string().max(254, "Please enter a valid email address.")),
+  phone: trimmed(30)
+    .pipe(z.string().min(1, "Please enter your cell phone number."))
+    .refine(
+      (value) => {
+        const digits = value.replace(/\D/g, "");
+        return digits.length >= 10 && digits.length <= 15;
+      },
+      { message: "Please enter a valid cell phone number." },
+    ),
+  trecNumber: trimmed(20)
+    // "na", "n/a", "N.A." and friends all normalise to a clean "NA".
+    .transform((value) =>
+      /^n\.?\/?\.?a\.?$/i.test(value) ? "NA" : value,
+    )
+    .pipe(
+      z
+        .string()
+        .min(
+          1,
+          "Please enter your TREC license number, or NA if you are not a realtor.",
+        ),
+    ),
   company: trimmed(120).pipe(z.string().min(1, "Please enter your company.")),
   role: trimmed(120).pipe(
-    z.string().min(1, "Please enter your professional role."),
+    z.string().min(1, "Please select at least one professional role."),
   ),
   referral: trimmed(500).optional().default(""),
   consent: z.boolean().optional().default(false),
@@ -68,6 +90,8 @@ export const leadFieldNames = [
   "firstName",
   "lastName",
   "email",
+  "phone",
+  "trecNumber",
   "company",
   "role",
   "referral",

@@ -33,6 +33,8 @@ export async function submitLead(
     firstName: String(formData.get("firstName") ?? ""),
     lastName: String(formData.get("lastName") ?? ""),
     email: String(formData.get("email") ?? ""),
+    phone: String(formData.get("phone") ?? ""),
+    trecNumber: String(formData.get("trecNumber") ?? ""),
     company: String(formData.get("company") ?? ""),
     role: String(formData.get("role") ?? ""),
     referral: String(formData.get("referral") ?? ""),

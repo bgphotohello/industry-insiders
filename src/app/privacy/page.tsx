@@ -24,14 +24,22 @@ export default function PrivacyPage() {
       <DocSection heading="What we collect">
         <p>
           The interest list form collects your first name, last name, email
-          address, company, professional role, and — if you choose to share it —
-          how you heard about Industry Insider. It also records whether you
-          opted in to receive news, invitations, and membership information.
+          address, cell phone number, company, professional role, and — if you
+          choose to share it — how you heard about Industry Insider. If you are
+          a licensed real estate agent, it also collects your TREC license
+          number, which we may use to confirm licensure with the Texas Real
+          Estate Commission; if you are not a realtor, you simply enter
+          &ldquo;NA&rdquo;. The form also records whether you opted in to
+          receive news, invitations, and membership information.
         </p>
         <p>
           Nothing else is collected on this site. There is no advertising
           network, no behavioural tracking, and no third-party analytics script
-          on this page.
+          on this page. See the{" "}
+          <a href="/cookies" className="underline decoration-champagne-500/50 underline-offset-4 hover:decoration-champagne-400">
+            cookie policy
+          </a>{" "}
+          for the short story on cookies and browser storage.
         </p>
       </DocSection>
 
