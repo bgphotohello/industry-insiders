@@ -38,8 +38,10 @@ export default function TermsPage() {
         </p>
         <p>
           Please submit accurate information about yourself and your
-          professional role. Submissions that misrepresent identity or
-          affiliation may be removed.
+          professional role. If you provide a TREC license number, you confirm
+          it is your own and current, and you understand it may be verified
+          with the Texas Real Estate Commission. Submissions that misrepresent
+          identity, licensure, or affiliation may be removed.
         </p>
       </DocSection>
 

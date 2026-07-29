@@ -139,16 +139,16 @@ export const interest = {
     lastName: { label: "Last name", autoComplete: "family-name" },
     email: { label: "Email address", autoComplete: "email" },
     phone: { label: "Cell phone", autoComplete: "tel" },
-    company: { label: "Company", autoComplete: "organization" },
-    role: {
-      label: "Which describes you?",
-      placeholder: "Select one",
+    trecNumber: {
+      label: "TREC license #",
+      hintLabel: "NA if not a realtor",
       autoComplete: "off",
     },
-    licence: {
-      label: "TREC license #",
-      help: "Enter NA if you are not licensed.",
-      autoComplete: "off",
+    company: { label: "Company", autoComplete: "organization" },
+    role: {
+      label: "Professional role",
+      hintLabel: "Select all that apply",
+      options: ["Realtor", "Broker", "Industry Partner"],
     },
     referral: {
       // The design comp shortens this so it sits in the three-up row without

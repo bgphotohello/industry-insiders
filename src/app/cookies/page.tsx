@@ -1,97 +1,78 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
 import { DocSection, PageShell } from "@/components/layout/PageShell";
 
 export const metadata: Metadata = {
   title: "Cookies",
   description:
-    "What Industry Insider stores in your browser, and why there are currently no cookies on this site.",
+    "How the Industry Insider launch site uses cookies and browser storage — which is to say, barely at all.",
   alternates: { canonical: "/cookies" },
 };
 
 /**
- * NOTE FOR LAUNCH: every claim on this page is a statement of fact about the
- * code as it stands, verified against it rather than assumed:
- *
- *   - nothing in src/ sets a cookie, reads document.cookie, or calls next/headers
- *     cookies()
- *   - the only browser storage is one sessionStorage key, "ii:intro-seen:v1"
- *   - no analytics, advertising or tag-manager script is loaded anywhere
- *   - Turnstile is the one third party that would set a cookie, and it is only
- *     loaded when TURNSTILE_SITE_KEY is configured, which it currently is not
- *
- * If any of that changes — analytics, a pixel, an embedded video, a chat
- * widget, Turnstile going live — this page has to change with it, or it becomes
- * untrue. Have counsel review before launch.
+ * NOTE FOR LAUNCH: this page describes exactly what the site does today. If
+ * analytics, embedded media, or the member portal are added later, list their
+ * cookies here before they ship, and have counsel review alongside the
+ * privacy policy.
  */
 export default function CookiesPage() {
   return (
     <PageShell
       eyebrow="COOKIES"
-      title="No cookies. For now, none at all."
-      intro="Most sites open with a banner asking permission to track you. This one has nothing to ask for, and would rather say so plainly than perform a choice that isn't real."
+      title="Cookies, kept simple."
+      intro="This site is deliberately quiet. No advertising cookies, no tracking pixels, no analytics profiles — here is the complete list of what your browser stores."
     >
+      <DocSection heading="What cookies are">
+        <p>
+          Cookies are small pieces of text a website asks your browser to keep,
+          usually so the site can recognise you between pages or visits. A close
+          cousin, browser storage, keeps similar notes that never leave your
+          device.
+        </p>
+      </DocSection>
+
       <DocSection heading="What this site stores">
         <p>
-          This site sets no cookies. There is no advertising network, no
-          analytics script, no tag manager, and no third-party pixel on any
-          page.
-        </p>
-        <p>
-          One thing is stored in your browser: a single entry in session
-          storage, recording that you have already seen the opening animation so
-          it does not replay every time you move around the site. It holds no
-          identifier and nothing about you, it is never sent to a server, and
-          your browser discards it the moment you close the tab.
+          One thing: a temporary note in your browser&rsquo;s session storage
+          that records whether the opening animation has already played, so it
+          does not replay every time you return to the page. It contains no
+          personal information, it is never sent to us, and your browser
+          discards it when the tab closes.
         </p>
       </DocSection>
 
-      <DocSection heading="Why there is no banner">
+      <DocSection heading="Security verification">
         <p>
-          Consent banners exist to obtain permission for tracking. With no
-          tracking to permit, a banner would be theatre — an interruption that
-          implies a choice you are not actually being given. When that changes,
-          this page changes first, and anything requiring consent will ask for
-          it properly.
+          When our form protection service (Cloudflare Turnstile) is active, it
+          may set a cookie solely to distinguish people from automated scripts
+          while you complete the interest form. It is used for security, not
+          advertising, and does not follow you across other websites.
         </p>
       </DocSection>
 
-      <DocSection heading="What would change this">
+      <DocSection heading="What this site does not do">
         <p>
-          As Industry Insider grows, some of the following may be introduced:
-          privacy-respecting analytics, an anti-spam check on the interest list
-          form, or a members&rsquo; area that needs a cookie to keep you signed
-          in. A sign-in cookie is strictly necessary and works without consent;
-          analytics is not, and would be opt-in.
-        </p>
-        <p>
-          Whichever arrives first, this page will name it, say what it does, and
-          say how long it lasts, before it is switched on.
+          There are no advertising cookies, no social media pixels, no
+          cross-site trackers, and no third-party analytics on this site. We do
+          not build profiles of visitors, and we do not share browsing
+          information with anyone.
         </p>
       </DocSection>
 
-      <DocSection heading="Managing what is stored">
+      <DocSection heading="Your choices">
         <p>
-          Every browser lets you view and clear cookies and site data, usually
-          under privacy settings, and can block them for individual sites. Since
-          this site stores only the single session entry described above,
-          clearing it costs you nothing beyond seeing the opening animation once
-          more.
+          Because nothing here is used to track you, there is nothing to opt
+          out of. You can still clear or block cookies and site data at any
+          time in your browser&rsquo;s settings; the only effect on this site
+          is that the opening animation may play again.
         </p>
       </DocSection>
 
-      <DocSection heading="Related">
+      <DocSection heading="Changes">
         <p>
-          What we collect when you join the interest list, and what we do with
-          it, is set out in the{" "}
-          <Link
-            href="/privacy"
-            className="text-champagne-400 underline underline-offset-4 transition-colors duration-300 hover:text-champagne-300"
-          >
-            privacy policy
-          </Link>
-          .
+          If the site ever begins using additional cookies — for example, when
+          the member area launches — this page will be updated first, and the
+          current version will always live at this address.
         </p>
       </DocSection>
     </PageShell>
