@@ -30,7 +30,7 @@ export function createWebhookProvider(url: string, secret?: string): LeadProvide
             phone: lead.phone,
             company: lead.company,
             role: lead.role,
-            trec_license: lead.licence,
+            trec_license: lead.trecNumber,
             referral_source: lead.referral,
             marketing_consent: lead.consent,
             submitted_at: lead.submittedAt,

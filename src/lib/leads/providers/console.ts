@@ -27,7 +27,7 @@ export const consoleProvider: LeadProvider = {
       phone: lead.phone ? "provided" : "empty",
       company: lead.company ? "provided" : "empty",
       role: lead.role || "empty",
-      licence: lead.licence ? "provided" : "empty",
+      trecNumber: lead.trecNumber ? "provided" : "empty",
       referral: lead.referral ? "provided" : "empty",
       consent: lead.consent,
       submittedAt: lead.submittedAt,

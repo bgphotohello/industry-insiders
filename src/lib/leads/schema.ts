@@ -14,6 +14,32 @@ const trimmed = (max: number) =>
     .transform((value) => value.trim())
     .pipe(z.string().max(max, `Please keep this under ${max} characters.`));
 
+/**
+ * Normalise a phone number to E.164, so every record lands in the CRM as one
+ * format ("+12145550134") no matter how it was typed.
+ *
+ * Deliberately forgiving — "214.555.0134", "(214) 555 0134" and
+ * "+1 214-555-0134" are all the same number, and none of them is a mistake
+ * worth bouncing someone over. Anything beginning with "+" is treated as
+ * already international and kept; everything else is read as US/Canada, which
+ * is the whole of Dallas–Fort Worth.
+ *
+ * Returns null when it cannot make sense of the input.
+ */
+export function normalisePhone(raw: string): string | null {
+  const value = raw.trim();
+  if (value === "") return null;
+
+  const digits = value.replace(/\D/g, "");
+
+  if (value.startsWith("+")) {
+    return digits.length >= 8 && digits.length <= 15 ? `+${digits}` : null;
+  }
+  if (digits.length === 10) return `+1${digits}`;
+  if (digits.length === 11 && digits.startsWith("1")) return `+${digits}`;
+  return null;
+}
+
 export const leadSchema = z.object({
   firstName: trimmed(80).pipe(
     z.string().min(1, "Please enter your first name."),
@@ -29,13 +55,17 @@ export const leadSchema = z.object({
     .pipe(z.string().max(254, "Please enter a valid email address.")),
   phone: trimmed(30)
     .pipe(z.string().min(1, "Please enter your cell phone number."))
-    .refine(
-      (value) => {
-        const digits = value.replace(/\D/g, "");
-        return digits.length >= 10 && digits.length <= 15;
-      },
-      { message: "Please enter a valid cell phone number." },
-    ),
+    .transform((value, ctx) => {
+      const normalised = normalisePhone(value);
+      if (normalised === null) {
+        ctx.addIssue({
+          code: "custom",
+          message: "Please enter a valid cell phone number.",
+        });
+        return z.NEVER;
+      }
+      return normalised;
+    }),
   trecNumber: trimmed(20)
     // "na", "n/a", "N.A." and friends all normalise to a clean "NA".
     .transform((value) =>
@@ -48,6 +78,11 @@ export const leadSchema = z.object({
           1,
           "Please enter your TREC license number, or NA if you are not a realtor.",
         ),
+    )
+    // Real numbers land uppercase with spaces and dashes stripped, so
+    // "trec 0654-321" and "TREC0654321" are the same value in the CRM.
+    .transform((value) =>
+      value === "NA" ? value : value.replace(/[\s-]/g, "").toUpperCase(),
     ),
   company: trimmed(120).pipe(z.string().min(1, "Please enter your company.")),
   role: trimmed(120).pipe(
