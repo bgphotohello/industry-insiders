@@ -483,6 +483,11 @@ Verified on this build, and worth re-running after any significant change.
 **Form**
 
 - [x] Field-level validation with accessible, always-visible labels
+- [x] Cell phone required; stored as E.164 (+12145550134) however it is typed
+- [x] TREC license required; "na"/"n/a" variants store as NA, real numbers
+      uppercased with spaces and dashes stripped
+- [x] Role checkboxes: at least one required, stored comma-joined
+- [x] Phone and TREC number delivered by all four lead providers
 - [x] Email normalised (trimmed + lower-cased) before delivery
 - [x] Submit disabled while sending, with a restrained loading state
 - [x] Five rapid clicks produce exactly one delivery
