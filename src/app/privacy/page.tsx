@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { DocSection, PageShell } from "@/components/layout/PageShell";
 
@@ -24,14 +25,30 @@ export default function PrivacyPage() {
       <DocSection heading="What we collect">
         <p>
           The interest list form collects your first name, last name, email
-          address, company, professional role, and — if you choose to share it —
-          how you heard about Industry Insider. It also records whether you
-          opted in to receive news, invitations, and membership information.
+          address, cell phone number, company, which of our member categories
+          describes you, and your TREC license number. If you are not licensed,
+          that last field takes &ldquo;NA&rdquo; and we store it as such. If you
+          choose to tell us how you heard about Industry Insider, we keep that
+          too. We also record whether you opted in to receive news, invitations,
+          and membership information.
+        </p>
+        <p>
+          The license number is collected for one reason: to confirm that people
+          joining a professional community are who they say they are. It is not
+          published, not shared, and not used to look anything up about you
+          beyond that.
         </p>
         <p>
           Nothing else is collected on this site. There is no advertising
           network, no behavioural tracking, and no third-party analytics script
-          on this page.
+          on this page. What is stored in your browser is set out in the{" "}
+          <Link
+            href="/cookies"
+            className="text-champagne-400 underline underline-offset-4 transition-colors duration-300 hover:text-champagne-300"
+          >
+            cookie policy
+          </Link>
+          .
         </p>
       </DocSection>
 
@@ -42,6 +59,12 @@ export default function PrivacyPage() {
           they become available. If you did not opt in to receive news and
           invitations, we will limit contact to responding about your interest
           in membership.
+        </p>
+        <p>
+          Your cell number is held so a real person can reach you about
+          membership. We do not send automated marketing text messages, and we
+          will not begin doing so without asking you separately and clearly
+          first.
         </p>
       </DocSection>
 

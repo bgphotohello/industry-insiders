@@ -22,8 +22,12 @@ export const consoleProvider: LeadProvider = {
     console.info("[industry-insider] interest-list submission", {
       name: `${lead.firstName.slice(0, 1)}. ${lead.lastName.slice(0, 1)}.`,
       email: redactEmail(lead.email),
+      // Presence only. The console provider is the local-development default,
+      // so it deliberately never prints a phone number or a licence number.
+      phone: lead.phone ? "provided" : "empty",
       company: lead.company ? "provided" : "empty",
-      role: lead.role ? "provided" : "empty",
+      role: lead.role || "empty",
+      licence: lead.licence ? "provided" : "empty",
       referral: lead.referral ? "provided" : "empty",
       consent: lead.consent,
       submittedAt: lead.submittedAt,

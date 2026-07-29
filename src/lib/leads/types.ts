@@ -8,8 +8,13 @@ export type LeadRecord = {
   firstName: string;
   lastName: string;
   email: string;
+  /** E.164, e.g. "+12145550134". */
+  phone: string;
   company: string;
+  /** One of the ROLE_OPTIONS slugs. */
   role: string;
+  /** A TREC licence number, or "N/A" for anyone not licensed. */
+  licence: string;
   referral: string;
   consent: boolean;
   /** ISO-8601, stamped on the server. */
@@ -40,8 +45,10 @@ export function toLeadRecord(input: LeadInput, source: string): LeadRecord {
     firstName: input.firstName,
     lastName: input.lastName,
     email: input.email,
+    phone: input.phone,
     company: input.company,
     role: input.role,
+    licence: input.licence,
     referral: input.referral,
     consent: input.consent,
     submittedAt: new Date().toISOString(),

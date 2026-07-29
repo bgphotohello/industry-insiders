@@ -1,3 +1,4 @@
+import { roleLabel } from "../schema";
 import type { LeadProvider, LeadRecord } from "../types";
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
@@ -57,8 +58,10 @@ export function createResendProvider(config: {
                 <table style="border-collapse:collapse;width:100%">
                   ${row("Name", fullName)}
                   ${row("Email", lead.email)}
+                  ${row("Cell", lead.phone)}
                   ${row("Company", lead.company)}
-                  ${row("Role", lead.role)}
+                  ${row("Role", roleLabel(lead.role))}
+                  ${row("TREC license", lead.licence)}
                   ${row("Heard via", lead.referral)}
                   ${row("Marketing consent", lead.consent ? "Yes" : "No")}
                   ${row("Submitted", lead.submittedAt)}
