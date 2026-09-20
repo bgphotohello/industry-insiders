@@ -1,0 +1,156 @@
+# Building the Landscaping Site in HighLevel
+
+This guide recreates `index.html` (the design preview in this folder) inside
+GoHighLevel, wired up so a quote request books the prospect straight onto the
+company's calendar. Follow the sections in order — calendar and form first,
+page last, since the page embeds both.
+
+The demo uses **"Cedar Ridge Landscaping"** as placeholder branding. Swap in
+the client's real name, logo, phone number, license number, photos, and
+reviews everywhere you see them.
+
+---
+
+## 1. Sub-account & business profile
+
+1. Create (or open) the client's **sub-account** in your agency dashboard.
+2. **Settings → Business Profile**: business name, address, phone, logo,
+   time zone. The time zone here drives calendar availability, so set it first.
+3. **Settings → Phone Numbers**: buy/assign an SMS-capable number (needed for
+   the confirmation and reminder texts).
+
+## 2. The calendar ("Free On-Site Walkthrough")
+
+**Calendars → Calendars → + New Calendar** (Simple/Round Robin — Simple if one
+estimator, Round Robin if multiple crews quote).
+
+- **Name:** Free On-Site Walkthrough
+- **Duration:** 45 min · **Buffer:** 15–30 min (drive time between properties)
+- **Availability:** e.g. Mon–Fri 8:00am–4:00pm, Sat by request, Sundays off
+  (the demo calendar mirrors this — Sundays are greyed out)
+- **Booking window:** minimum notice 24h, book up to ~30 days out
+- **Slots per day:** cap it (e.g. 4–6) so quoting doesn't eat whole days
+- **Team member:** the owner/estimator, with their **Google or Outlook
+  calendar synced two-way** (Settings → My Profile → Calendar Settings) so
+  personal events block booking slots automatically.
+- **Forms & Payment tab:** you can add custom questions directly on the
+  calendar widget — but we'll use a separate form first (section 3) so you
+  capture the lead *even if they never pick a time*.
+
+## 3. Custom fields & the quote form
+
+**Settings → Custom Fields** — create these (Contact type):
+
+| Field | Type |
+|---|---|
+| Property Address | Text (or use the built-in Address field) |
+| Services Needed | Checkbox — Lawn care, Design & install, Patio / hardscape, Irrigation, Cleanup, Lighting |
+| Project Details | Multi-line text |
+
+**Sites → Forms → Builder → + Add Form**, name it "Quote Request":
+
+1. Fields, in order (matching the demo): First Name, Last Name, Phone, Email,
+   Property Address, Services Needed (checkbox group), Project Details.
+2. Mark name/phone/email/address **required**.
+3. **Styling:** rounded inputs, off-white field background, and a full-width
+   submit button. Demo palette if you want to match exactly:
+   - Deep pine `#1E3D2B` (headers, primary button)
+   - Leaf green `#55803F` (accents)
+   - Gold `#DDA23A` (call-to-action button)
+   - Paper background `#F7F5EC`
+4. **On Submit → Redirect to URL** → the URL of the funnel's calendar step
+   (you'll have this after section 4). This is what turns "quote request"
+   into "on the calendar" in one motion.
+
+## 4. The page (funnel)
+
+**Sites → Funnels → + New Funnel** → "Landscaping Home". Two steps:
+
+- **Step 1 — Home** (path `/`): the scrolling page
+- **Step 2 — Book Your Walkthrough** (path `/book`): calendar page
+
+### Step 1 — Home page sections
+
+Build top to bottom with GHL's page builder, mirroring the demo:
+
+| Demo section | GHL builder element |
+|---|---|
+| Sticky nav with "Get a Free Quote" button | Navigation menu section, button links to `#quote` |
+| Hero (headline, sub, two buttons, trust chips) | 1-column section, H1 + paragraph + button row |
+| Services (6 cards) | 3-column row × 2, icon + heading + text each |
+| How it works (3 numbered steps, dark band) | 3-column section, background `#142B1E` |
+| Recent projects (3 photo cards) | 3-column row with Image elements — **use the client's real before/after photos** |
+| Reviews (3 quotes) | 3-column row; or embed the GHL Reviews widget if Reputation is active |
+| Quote section | **Form element** → select "Quote Request" (give the section ID `quote` so nav buttons anchor to it) |
+| Footer | Section with hours, service area, phone, license # |
+
+Typography to match the demo: **Bricolage Grotesque** (headings) and
+**Karla** (body) — both are in the builder's Google Fonts picker.
+
+For SEO/mobile: set page title ("Cedar Ridge Landscaping — Lawn Care, Patios &
+Landscape Design"), meta description, favicon, and check every section in the
+builder's mobile preview.
+
+### Step 2 — Booking page
+
+Sparse on purpose: short headline ("Pick a time for your free walkthrough"),
+one line of reassurance, then a **Calendar element** → select "Free On-Site
+Walkthrough". Copy this step's URL into the form's redirect (section 3.4).
+
+Because the contact was just created by the form, HighLevel pre-fills their
+info on the booking widget — they only pick a date and time, exactly like the
+demo's step 2.
+
+## 5. Automations (Workflows)
+
+**Automation → Workflows** — three workflows make the whole thing run itself:
+
+**A. "Quote Request — New Lead"** — Trigger: Form Submitted (Quote Request)
+1. Add tag `quote-request`
+2. Assign to owner + internal notification (email/SMS to the client's phone)
+3. **Wait 30 min → If/Else: has an appointment?**
+   - **No →** SMS: "Hi {{contact.first_name}}, thanks for your quote request!
+     Grab a time for your free walkthrough here: {booking link}" — then a
+     second nudge next day if still unbooked.
+   - **Yes →** end (workflow B has it covered).
+
+**B. "Walkthrough — Confirm & Remind"** — Trigger: Customer Booked Appointment
+(Free On-Site Walkthrough)
+1. Confirmation SMS + email (date, time, what to expect, reschedule link)
+2. Reminder 24 hours before
+3. Reminder 1 hour before ("we're on the way" tone)
+
+**C. "After the Walkthrough"** — Trigger: Appointment Status = Showed
+1. Same-day thank-you + "your written quote is coming within 48 hours"
+2. Task for the owner: send the quote
+3. Optional: 3-day and 7-day follow-ups if the quote isn't accepted; review
+   request once the job completes.
+
+Also handle **No-show**: trigger on status No Show → friendly re-book SMS.
+
+## 6. Domain & launch
+
+1. **Settings → Domains** → add the client's domain (or a subdomain like
+   `go.clientdomain.com`), point DNS per GHL's instructions.
+2. Set funnel Step 1 as the default page for that domain.
+3. Test end-to-end **on your phone**: submit the form → land on the calendar →
+   book → confirm the appointment appears on the synced Google/Outlook
+   calendar and both texts arrive.
+
+## 7. What to collect from the client
+
+- [ ] Business name, logo (SVG/PNG), brand colors if they have them
+- [ ] Phone number, email, service area, hours, license #
+- [ ] 6–9 project photos (before/after pairs are gold)
+- [ ] 3+ real reviews (or pull via GHL Reputation from their Google profile)
+- [ ] Services list confirmed (the demo's six are a starting point)
+- [ ] Who gets lead notifications, and estimator availability for the calendar
+
+## Using the demo file itself
+
+`index.html` is the **design preview** — open it in any browser to walk the
+client through the look and the booking flow (the form → calendar → confirmed
+sequence is interactive; nothing is actually sent). Build the production page
+natively with GHL elements per section 4 rather than pasting the whole file
+into a custom-code block, so the client can edit copy themselves and the
+form/calendar are real GHL objects that trigger the workflows.

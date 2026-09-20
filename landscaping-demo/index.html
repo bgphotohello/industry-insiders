@@ -1,0 +1,669 @@
+<title>Cedar Ridge Landscaping</title>
+<style>
+  :root {
+    --paper: #F7F5EC;
+    --ink: #1F2B1E;
+    --pine: #1E3D2B;
+    --pine-deep: #142B1E;
+    --leaf: #55803F;
+    --moss: #7E9469;
+    --sun: #DDA23A;
+    --sun-deep: #B77E1F;
+    --card: #FFFFFF;
+    --line: rgba(30, 61, 43, 0.16);
+    --line-soft: rgba(30, 61, 43, 0.09);
+    --ink-soft: #4C5A48;
+    --radius: 14px;
+    --display: "Bricolage Grotesque", "Avenir Next", "Trebuchet MS", sans-serif;
+    --body: "Karla", "Gill Sans", "Segoe UI", sans-serif;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16.5px;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .wrap { max-width: 1120px; margin-inline: auto; padding-inline: 20px; }
+
+  h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+
+  .eyebrow {
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--leaf);
+  }
+
+  a { color: var(--pine); }
+  :focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; border-radius: 4px; }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+    background: rgba(247, 245, 236, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding-block: 14px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+  .brand-name { font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: 0.01em; }
+  .brand-name small { display: block; font-family: var(--body); font-weight: 700; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--moss); }
+  .nav-links { display: flex; gap: 26px; align-items: center; }
+  .nav-links a { text-decoration: none; font-weight: 700; font-size: 15px; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--pine); }
+  @media (max-width: 780px) { .nav-links { display: none; } }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: var(--body); font-weight: 800; font-size: 15.5px;
+    padding: 12px 22px; border-radius: 999px; border: 2px solid transparent;
+    cursor: pointer; text-decoration: none; transition: transform 0.12s ease, background 0.15s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-sun { background: var(--sun); color: var(--pine-deep); }
+  .btn-sun:hover { background: #E7B34F; }
+  .btn-pine { background: var(--pine); color: #F4F1E3; }
+  .btn-pine:hover { background: #27503A; }
+  .btn-ghost { border-color: var(--line); color: var(--pine); background: transparent; }
+  .btn-ghost:hover { border-color: var(--pine); }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; background: linear-gradient(180deg, #EAF0DC 0%, var(--paper) 78%); overflow: hidden; }
+  .hero-inner { position: relative; z-index: 2; padding-block: 72px 30px; max-width: 640px; }
+  .hero h1 { font-size: clamp(38px, 6vw, 62px); font-weight: 800; color: var(--pine-deep); margin-top: 14px; }
+  .hero h1 em { font-style: normal; color: var(--leaf); }
+  .hero-sub { margin-top: 18px; font-size: 18.5px; color: var(--ink-soft); max-width: 46ch; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .trust-row { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 30px; }
+  .trust { display: flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; color: var(--ink-soft); }
+  .trust svg { flex: none; }
+  .hero-art { display: block; width: 100%; height: auto; margin-top: -8px; }
+
+  /* ---------- Sections ---------- */
+  .section { padding-block: 72px; }
+  .section-head { max-width: 620px; margin-bottom: 40px; }
+  .section-head h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; color: var(--pine-deep); margin-top: 10px; }
+  .section-head p { margin-top: 12px; color: var(--ink-soft); }
+
+  .band-pine { background: var(--pine-deep); color: #EDEAD9; }
+  .band-pine .eyebrow { color: var(--sun); }
+  .band-pine .section-head h2 { color: #F4F1E3; }
+  .band-pine .section-head p { color: #B9C4AC; }
+
+  /* Services */
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .svc-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .svc-grid { grid-template-columns: 1fr; } }
+  .svc {
+    background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius);
+    padding: 24px 22px;
+  }
+  .svc-icon {
+    width: 44px; height: 44px; border-radius: 11px; background: #EAF0DC;
+    display: grid; place-items: center; margin-bottom: 16px;
+  }
+  .svc h3 { font-size: 19px; font-weight: 700; }
+  .svc p { margin-top: 8px; font-size: 15px; color: var(--ink-soft); }
+
+  /* Steps */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: step; }
+  @media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
+  .step { border: 1px solid rgba(244, 241, 227, 0.18); border-radius: var(--radius); padding: 26px 24px; }
+  .step-num {
+    font-family: var(--display); font-weight: 800; font-size: 15px;
+    width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--sun); color: var(--pine-deep); margin-bottom: 16px;
+  }
+  .step h3 { font-size: 19px; color: #F4F1E3; }
+  .step p { margin-top: 8px; font-size: 15px; color: #B9C4AC; }
+
+  /* Work */
+  .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .work-grid { grid-template-columns: 1fr; } }
+  .work-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line-soft); background: var(--card); }
+  .work-photo { aspect-ratio: 4 / 3; max-width: 100%; display: grid; place-items: center; position: relative; }
+  .work-photo span {
+    position: relative; z-index: 1; font-size: 12px; font-weight: 800; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(244, 241, 227, 0.95);
+    background: rgba(20, 43, 30, 0.55); padding: 6px 12px; border-radius: 999px;
+  }
+  .work-meta { padding: 16px 18px; }
+  .work-meta h3 { font-size: 17px; }
+  .work-meta p { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
+
+  /* Reviews */
+  .quote-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 900px) { .quote-grid { grid-template-columns: 1fr; } }
+  .review { background: var(--card); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 24px 22px; display: flex; flex-direction: column; gap: 14px; }
+  .stars { color: var(--sun-deep); letter-spacing: 3px; font-size: 15px; }
+  .review blockquote { margin: 0; font-size: 15.5px; }
+  .review cite { font-style: normal; font-weight: 800; font-size: 14px; color: var(--ink-soft); }
+
+  /* ---------- Quote + booking ---------- */
+  .quote-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 36px; align-items: start; }
+  @media (max-width: 900px) { .quote-layout { grid-template-columns: 1fr; } }
+
+  .panel { background: var(--card); border: 1px solid var(--line-soft); border-radius: 18px; padding: 30px 28px; }
+  @media (max-width: 480px) { .panel { padding: 24px 18px; } }
+
+  .form-steps { display: flex; gap: 8px; margin-bottom: 22px; }
+  .form-steps span {
+    flex: 1; height: 5px; border-radius: 999px; background: var(--line-soft);
+  }
+  .form-steps span.on { background: var(--leaf); }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-weight: 800; font-size: 14px; margin-bottom: 6px; }
+  .field input, .field select, .field textarea {
+    width: 100%; box-sizing: border-box; font: inherit; color: var(--ink);
+    background: #FBFAF4; border: 1.5px solid var(--line); border-radius: 10px;
+    padding: 11px 13px;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--leaf); outline: none; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips label {
+    position: relative;
+    border: 1.5px solid var(--line); border-radius: 999px; padding: 8px 15px;
+    font-size: 14px; font-weight: 700; cursor: pointer; user-select: none; color: var(--ink-soft);
+  }
+  .chips input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
+  .chips label:has(input:checked) { background: var(--pine); border-color: var(--pine); color: #F4F1E3; }
+  .chips label:has(input:focus-visible) { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+  .form-note { font-size: 13px; color: var(--moss); margin-top: 14px; }
+
+  /* Calendar step */
+  .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .cal-head h3 { font-size: 18px; }
+  .cal-nav { display: flex; gap: 6px; }
+  .cal-nav button {
+    width: 34px; height: 34px; border-radius: 8px; border: 1.5px solid var(--line);
+    background: transparent; cursor: pointer; font-size: 16px; color: var(--pine);
+  }
+  .cal-nav button:disabled { opacity: 0.35; cursor: default; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal-dow { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--moss); text-align: center; padding-block: 6px; }
+  .cal-day {
+    aspect-ratio: 1; max-width: 100%; border-radius: 9px; border: 1.5px solid transparent;
+    background: transparent; font: inherit; font-weight: 700; font-size: 14px;
+    color: var(--ink); cursor: pointer; font-variant-numeric: tabular-nums;
+  }
+  .cal-day:hover:not(:disabled) { border-color: var(--leaf); }
+  .cal-day:disabled { color: rgba(31, 43, 30, 0.25); cursor: default; }
+  .cal-day.sel { background: var(--pine); color: #F4F1E3; }
+  .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 18px; }
+  @media (max-width: 420px) { .slots { grid-template-columns: repeat(2, 1fr); } }
+  .slot {
+    border: 1.5px solid var(--line); border-radius: 9px; padding: 10px 6px;
+    background: transparent; font: inherit; font-weight: 700; font-size: 14px;
+    color: var(--pine); cursor: pointer; font-variant-numeric: tabular-nums;
+  }
+  .slot.sel { background: var(--sun); border-color: var(--sun); color: var(--pine-deep); }
+  .cal-caption { font-size: 13px; color: var(--ink-soft); margin-top: 14px; }
+  .form-actions { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+
+  /* Confirmation */
+  .confirm { text-align: center; padding-block: 18px; }
+  .confirm-badge { width: 62px; height: 62px; margin: 0 auto 18px; border-radius: 50%; background: #EAF0DC; display: grid; place-items: center; }
+  .confirm h3 { font-size: 24px; color: var(--pine-deep); }
+  .confirm .when { margin-top: 10px; font-weight: 800; font-size: 17px; color: var(--leaf); }
+  .confirm p.small { margin-top: 12px; font-size: 14.5px; color: var(--ink-soft); max-width: 40ch; margin-inline: auto; }
+
+  /* Behind the scenes card */
+  .behind { background: var(--pine-deep); color: #EDEAD9; border-radius: 18px; padding: 28px 26px; }
+  .behind .eyebrow { color: var(--sun); }
+  .behind h3 { color: #F4F1E3; font-size: 21px; margin-top: 8px; }
+  .behind ol { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 0; }
+  .behind li { display: flex; gap: 14px; padding-block: 13px; border-top: 1px solid rgba(244, 241, 227, 0.14); font-size: 14.5px; color: #C9D2BC; }
+  .behind li:first-child { border-top: 0; padding-top: 0; }
+  .behind li strong { display: block; color: #F4F1E3; font-size: 15px; }
+  .behind-dot { flex: none; width: 26px; height: 26px; border-radius: 50%; background: rgba(221, 162, 58, 0.16); color: var(--sun); display: grid; place-items: center; font-weight: 800; font-size: 12.5px; margin-top: 2px; }
+  .behind .foot { margin-top: 18px; font-size: 12.5px; color: rgba(201, 210, 188, 0.75); }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--pine-deep); color: #B9C4AC; margin-top: 72px; }
+  .foot-inner { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 32px; padding-block: 52px 40px; }
+  @media (max-width: 820px) { .foot-inner { grid-template-columns: 1fr; } }
+  footer h4 { font-family: var(--display); color: #F4F1E3; font-size: 16px; margin: 0 0 12px; }
+  footer p, footer li { font-size: 14.5px; }
+  footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  footer a { color: #DCE3CF; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  .foot-legal { border-top: 1px solid rgba(244, 241, 227, 0.14); padding-block: 18px calc(18px + env(safe-area-inset-bottom, 0px)); font-size: 12.5px; color: rgba(185, 196, 172, 0.7); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Karla:wght@400;700;800&display=swap">
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="17" fill="#1E3D2B"/><path d="M17 26c0-7 1.5-12 8-16-1 7-2.5 12-8 16Zm0 0c0-6-1.2-10.5-6.5-14 .8 6 2 10.5 6.5 14Z" fill="#DDA23A"/><path d="M17 27v-8" stroke="#DDA23A" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span class="brand-name">Cedar Ridge<small>Landscaping Co.</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#work">Our Work</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-sun" href="#quote">Get a Free Quote</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-inner">
+      <p class="eyebrow">Residential &amp; Commercial · Locally Owned</p>
+      <h1>A yard you're proud to <em>pull up to.</em></h1>
+      <p class="hero-sub">Design, installation, and year-round care from a crew that shows up on time and leaves your property cleaner than we found it. Free on-site estimates, booked in under a minute.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-pine" href="#quote">Request a quote &amp; pick a time</a>
+        <a class="btn btn-ghost" href="tel:5555550134">Call (555) 555-0134</a>
+      </div>
+      <div class="trust-row">
+        <span class="trust"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l2 4.2 4.6.6-3.4 3.2.9 4.5L8 11.3 3.9 13.5l.9-4.5L1.4 5.8 6 5.2 8 1Z" fill="#DDA23A"/></svg> 4.9 from 180+ local reviews</span>
+        <span class="trust"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1 14 3.5v4C14 11.5 11.5 14 8 15 4.5 14 2 11.5 2 7.5v-4L8 1Z" fill="none" stroke="#55803F" stroke-width="1.6"/><path d="m5.4 8 1.8 1.8 3.4-3.6" fill="none" stroke="#55803F" stroke-width="1.6" stroke-linecap="round"/></svg> Licensed &amp; insured</span>
+        <span class="trust"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#55803F" stroke-width="1.6"/><path d="M8 4.5V8l2.4 1.6" fill="none" stroke="#55803F" stroke-width="1.6" stroke-linecap="round"/></svg> Estimates within 48 hours</span>
+      </div>
+    </div>
+  </div>
+  <svg class="hero-art" viewBox="0 0 1440 210" preserveAspectRatio="none" aria-hidden="true">
+    <circle cx="1150" cy="60" r="46" fill="#EFC469" opacity="0.85"/>
+    <path d="M0 150 C 240 90, 420 170, 700 128 C 980 86, 1160 150, 1440 110 V 210 H 0 Z" fill="#7E9469" opacity="0.55"/>
+    <path d="M0 170 C 260 120, 520 190, 820 150 C 1100 114, 1260 176, 1440 140 V 210 H 0 Z" fill="#55803F" opacity="0.7"/>
+    <path d="M0 190 C 300 150, 640 205, 960 172 C 1200 148, 1340 196, 1440 176 V 210 H 0 Z" fill="#1E3D2B"/>
+    <g fill="#142B1E">
+      <path d="M180 178c0-26 6-44 14-56 8 12 14 30 14 56h-28Z"/>
+      <path d="M980 166c0-22 5-37 12-47 7 10 12 25 12 47h-24Z"/>
+      <path d="M1290 160c0-18 4-30 10-38 6 8 10 20 10 38h-20Z"/>
+    </g>
+  </svg>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">What we do</p>
+      <h2>Every season, every square foot.</h2>
+      <p>One crew for the whole property — from weekly mowing to full backyard transformations.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc">
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18M5 18c1-6 3-10 7-13 4 3 6 7 7 13" fill="none" stroke="#1E3D2B" stroke-width="1.8" stroke-linecap="round"/><path d="M12 18V9" stroke="#55803F" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Lawn Care &amp; Maintenance</h3>
+        <p>Weekly mowing, edging, fertilization, and weed control on a schedule you never have to think about.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20c0-8 4-13 12-15-1 9-5 13-12 15Z" fill="none" stroke="#1E3D2B" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 20c3-4 6-7 10-9" stroke="#55803F" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Landscape Design &amp; Install</h3>
+        <p>Beds, plantings, sod, and full designs drawn for your soil, sun, and budget — installed by our own crew.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="13" width="8" height="5" rx="1" fill="none" stroke="#1E3D2B" stroke-width="1.8"/><rect x="13" y="13" width="8" height="5" rx="1" fill="none" stroke="#1E3D2B" stroke-width="1.8"/><rect x="8" y="6" width="8" height="5" rx="1" fill="none" stroke="#55803F" stroke-width="1.8"/></svg></div>
+        <h3>Patios &amp; Hardscapes</h3>
+        <p>Paver patios, walkways, fire pits, and retaining walls built to drain right and stay level.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 4 5 7 5 10a5 5 0 0 1-10 0c0-3 2-6 5-10Z" fill="none" stroke="#1E3D2B" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 16v-4" stroke="#55803F" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Irrigation &amp; Drainage</h3>
+        <p>Sprinkler installs, repairs, spring start-ups, winterization, and French drains that end soggy spots.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11" fill="none" stroke="#1E3D2B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 12 12)"/></svg></div>
+        <h3>Seasonal Cleanups</h3>
+        <p>Spring and fall cleanups, leaf removal, pruning, and fresh mulch so every season starts sharp.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 15a5 5 0 1 1 6 0v2H9v-2Z" fill="none" stroke="#1E3D2B" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 20h4" stroke="#55803F" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Outdoor Lighting</h3>
+        <p>Low-voltage landscape lighting that makes the front walk safer and the backyard usable after dark.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="section band-pine" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">How it works</p>
+      <h2>From "someday" to scheduled in three steps.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Tell us about your project</h3>
+        <p>Two minutes on the quote form below — what you need, where you are, and any photos or details that help.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Pick a time that works</h3>
+        <p>Choose a walkthrough slot right on our live calendar. You'll get an instant text and email confirmation.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Get your quote &amp; start date</h3>
+        <p>We walk the property with you, then send a written quote within 48 hours — with a start date attached.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Recent projects</p>
+      <h2>Work that speaks for the whole street.</h2>
+      <p>Project photos drop in here — before &amp; afters convert better than anything we could write.</p>
+    </div>
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-photo" style="background: linear-gradient(160deg, #55803F 0%, #1E3D2B 100%);"><span>Project photo</span></div>
+        <div class="work-meta"><h3>Full backyard rebuild</h3><p>Paver patio, fire pit, new sod &amp; lighting</p></div>
+      </div>
+      <div class="work-card">
+        <div class="work-photo" style="background: linear-gradient(160deg, #7E9469 0%, #3C5A34 100%);"><span>Project photo</span></div>
+        <div class="work-meta"><h3>Front yard refresh</h3><p>Bed redesign, stone border, seasonal color</p></div>
+      </div>
+      <div class="work-card">
+        <div class="work-photo" style="background: linear-gradient(160deg, #C9BE8F 0%, #55803F 100%);"><span>Project photo</span></div>
+        <div class="work-meta"><h3>Drainage &amp; lawn recovery</h3><p>French drain, regrade, irrigation tune-up</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section" id="reviews" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Reviews</p>
+      <h2>Neighbors talk. Here's what they say.</h2>
+    </div>
+    <div class="quote-grid">
+      <div class="review">
+        <div class="stars" aria-label="5 stars">★★★★★</div>
+        <blockquote>"They quoted on a Tuesday and the patio was done before the holiday weekend. Every neighbor has asked who did it."</blockquote>
+        <cite>— Placeholder review · Maplewood Dr.</cite>
+      </div>
+      <div class="review">
+        <div class="stars" aria-label="5 stars">★★★★★</div>
+        <blockquote>"Booking the estimate online took under a minute, and they showed up exactly when the confirmation said they would."</blockquote>
+        <cite>— Placeholder review · Orchard Ln.</cite>
+      </div>
+      <div class="review">
+        <div class="stars" aria-label="5 stars">★★★★★</div>
+        <blockquote>"Our lawn was a swamp every spring. One drainage visit later, it's the driest yard on the block."</blockquote>
+        <cite>— Placeholder review · Ridgeline Ct.</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE + BOOKING ============ -->
+<section class="section" id="quote" style="background: #EFEDE0;">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Free estimate</p>
+      <h2>Request a quote — and put it on the calendar.</h2>
+      <p>In HighLevel this is one connected flow: the form creates the contact, the calendar books the walkthrough, and the automations do the rest.</p>
+    </div>
+
+    <div class="quote-layout">
+      <!-- In GoHighLevel, this panel = Form element (step 1) + Calendar element (step 2) -->
+      <div class="panel" id="contact">
+        <div class="form-steps" aria-hidden="true">
+          <span id="dot1" class="on"></span><span id="dot2"></span><span id="dot3"></span>
+        </div>
+
+        <!-- STEP 1: quote form -->
+        <form id="quoteForm" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label for="fname">First name</label>
+              <input id="fname" name="fname" autocomplete="given-name" required placeholder="Jordan">
+            </div>
+            <div class="field">
+              <label for="lname">Last name</label>
+              <input id="lname" name="lname" autocomplete="family-name" required placeholder="Rivera">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="phone">Mobile phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="(555) 555-0199">
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@email.com">
+            </div>
+          </div>
+          <div class="field">
+            <label for="address">Property address</label>
+            <input id="address" name="address" autocomplete="street-address" required placeholder="123 Cedar Ridge Rd.">
+          </div>
+          <div class="field">
+            <label id="svcLabel">What do you need? <span style="font-weight:400; color:var(--moss);">(pick any)</span></label>
+            <div class="chips" role="group" aria-labelledby="svcLabel">
+              <label><input type="checkbox" id="svc-lawn" name="services" value="Lawn care"> Lawn care</label>
+              <label><input type="checkbox" id="svc-design" name="services" value="Design & install"> Design &amp; install</label>
+              <label><input type="checkbox" id="svc-patio" name="services" value="Patio / hardscape"> Patio / hardscape</label>
+              <label><input type="checkbox" id="svc-irrigation" name="services" value="Irrigation"> Irrigation</label>
+              <label><input type="checkbox" id="svc-cleanup" name="services" value="Cleanup"> Cleanup</label>
+              <label><input type="checkbox" id="svc-lighting" name="services" value="Lighting"> Lighting</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="details">Anything else we should know?</label>
+            <textarea id="details" name="details" rows="3" placeholder="Roughly how big is the area? Any timeline in mind?"></textarea>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-pine" type="submit" style="flex:1;">Continue → pick your walkthrough time</button>
+          </div>
+          <p class="form-note">Design preview — nothing is sent. The live site submits straight into HighLevel.</p>
+        </form>
+
+        <!-- STEP 2: calendar (mimics the HighLevel calendar widget) -->
+        <div id="calStep" hidden>
+          <div class="cal-head">
+            <h3 id="calMonth">Month</h3>
+            <div class="cal-nav">
+              <button type="button" id="calPrev" aria-label="Previous month">‹</button>
+              <button type="button" id="calNext" aria-label="Next month">›</button>
+            </div>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div id="slotWrap" hidden>
+            <p style="font-weight:800; font-size:14px; margin-top:18px;">Available times — <span id="slotDay"></span></p>
+            <div class="slots" id="slots"></div>
+          </div>
+          <p class="cal-caption">45-minute on-site walkthrough · you'll get a text &amp; email confirmation instantly.</p>
+          <div class="form-actions">
+            <button class="btn btn-ghost" type="button" id="backBtn">← Back</button>
+            <button class="btn btn-sun" type="button" id="bookBtn" disabled style="flex:1;">Confirm my walkthrough</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: confirmation -->
+        <div id="doneStep" class="confirm" hidden>
+          <div class="confirm-badge">
+            <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="m7 16 6 6L24 9" fill="none" stroke="#55803F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>You're on the calendar.</h3>
+          <p class="when" id="confirmWhen">—</p>
+          <p class="small">A confirmation text and email are on the way, with reminders the day before and an hour before. Need to reschedule? The link in your confirmation handles it.</p>
+          <div class="form-actions" style="justify-content:center;">
+            <button class="btn btn-ghost" type="button" id="resetBtn">Start over (demo)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column: what HighLevel automates -->
+      <aside class="behind">
+        <p class="eyebrow">Behind the scenes</p>
+        <h3>What HighLevel does the moment they submit</h3>
+        <ol>
+          <li><span class="behind-dot">1</span><div><strong>Contact created &amp; tagged</strong>Name, phone, email, address, and requested services land in your CRM, tagged "Quote Request."</div></li>
+          <li><span class="behind-dot">2</span><div><strong>Walkthrough booked on your calendar</strong>The slot they pick syncs to your Google/Outlook calendar with all their details attached.</div></li>
+          <li><span class="behind-dot">3</span><div><strong>Instant confirmation text + email</strong>Branded confirmation goes out automatically — no one has to remember to reply.</div></li>
+          <li><span class="behind-dot">4</span><div><strong>Automatic reminders</strong>24-hour and 1-hour reminders cut no-shows dramatically.</div></li>
+          <li><span class="behind-dot">5</span><div><strong>Follow-up that never forgets</strong>If they don't book a time, HighLevel texts them the booking link. After the visit, the quote follow-up sequence starts.</div></li>
+        </ol>
+        <p class="foot">This panel is for your walkthrough with the client — on the live site it can be swapped for service-area info or an FAQ.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>
+        <h4>Cedar Ridge Landscaping Co.</h4>
+        <p>Placeholder branding — swap in the client's name, logo, photos, and license number before launch.</p>
+        <p style="margin-top:12px;"><a href="tel:5555550134">(555) 555-0134</a><br><a href="mailto:hello@cedarridge.example">hello@cedarridge.example</a></p>
+      </div>
+      <div>
+        <h4>Service area</h4>
+        <ul>
+          <li>Serving the greater metro area</li>
+          <li>Mon–Fri · 7:30am – 5:00pm</li>
+          <li>Sat · By appointment</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Our Work</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#quote">Get a Free Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>© 2026 Cedar Ridge Landscaping Co. · License #000000 (placeholder)</span>
+      <span>Design preview for a site built on HighLevel</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // --- Demo quote → calendar → confirmation flow (mimics GHL form + calendar widget) ---
+  var form = document.getElementById('quoteForm');
+  var calStep = document.getElementById('calStep');
+  var doneStep = document.getElementById('doneStep');
+  var dots = [document.getElementById('dot1'), document.getElementById('dot2'), document.getElementById('dot3')];
+  var calGrid = document.getElementById('calGrid');
+  var calMonthEl = document.getElementById('calMonth');
+  var slotWrap = document.getElementById('slotWrap');
+  var slotsEl = document.getElementById('slots');
+  var slotDayEl = document.getElementById('slotDay');
+  var bookBtn = document.getElementById('bookBtn');
+
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var viewYear = today.getFullYear(), viewMonth = today.getMonth();
+  var maxMonthOffset = 1; // this month + next, like a typical booking window
+  var selDate = null, selSlot = null;
+
+  var SLOTS = ['8:00 am', '9:00 am', '10:30 am', '12:00 pm', '1:30 pm', '3:00 pm'];
+  var DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  function setStep(n) {
+    form.hidden = n !== 1;
+    calStep.hidden = n !== 2;
+    doneStep.hidden = n !== 3;
+    for (var i = 0; i < 3; i++) dots[i].classList.toggle('on', i < n);
+  }
+
+  function monthOffset() { return (viewYear - today.getFullYear()) * 12 + (viewMonth - today.getMonth()); }
+
+  function renderCal() {
+    calMonthEl.textContent = MONTHS[viewMonth] + ' ' + viewYear;
+    document.getElementById('calPrev').disabled = monthOffset() <= 0;
+    document.getElementById('calNext').disabled = monthOffset() >= maxMonthOffset;
+    calGrid.innerHTML = '';
+    DOW.forEach(function (d) {
+      var el = document.createElement('div'); el.className = 'cal-dow'; el.textContent = d; calGrid.appendChild(el);
+    });
+    var first = new Date(viewYear, viewMonth, 1);
+    for (var b = 0; b < first.getDay(); b++) calGrid.appendChild(document.createElement('div'));
+    var days = new Date(viewYear, viewMonth + 1, 0).getDate();
+    for (var d = 1; d <= days; d++) {
+      var date = new Date(viewYear, viewMonth, d);
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'cal-day'; btn.textContent = d;
+      var closed = date.getDay() === 0; // Sundays off
+      btn.disabled = date <= today || closed;
+      if (selDate && date.getTime() === selDate.getTime()) btn.classList.add('sel');
+      btn.addEventListener('click', (function (date) {
+        return function () { selDate = date; selSlot = null; bookBtn.disabled = true; renderCal(); renderSlots(); };
+      })(date));
+      calGrid.appendChild(btn);
+    }
+  }
+
+  function renderSlots() {
+    slotWrap.hidden = !selDate;
+    if (!selDate) return;
+    slotDayEl.textContent = DOW[selDate.getDay()] + ', ' + MONTHS[selDate.getMonth()] + ' ' + selDate.getDate();
+    slotsEl.innerHTML = '';
+    SLOTS.forEach(function (t) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'slot' + (t === selSlot ? ' sel' : ''); b.textContent = t;
+      b.addEventListener('click', function () { selSlot = t; bookBtn.disabled = false; renderSlots(); });
+      slotsEl.appendChild(b);
+    });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    setStep(2); renderCal(); renderSlots();
+    calStep.scrollIntoView({ block: 'nearest' });
+  });
+
+  document.getElementById('calPrev').addEventListener('click', function () {
+    viewMonth--; if (viewMonth < 0) { viewMonth = 11; viewYear--; } renderCal();
+  });
+  document.getElementById('calNext').addEventListener('click', function () {
+    viewMonth++; if (viewMonth > 11) { viewMonth = 0; viewYear++; } renderCal();
+  });
+  document.getElementById('backBtn').addEventListener('click', function () { setStep(1); });
+
+  bookBtn.addEventListener('click', function () {
+    if (!selDate || !selSlot) return;
+    document.getElementById('confirmWhen').textContent =
+      DOW[selDate.getDay()] + ', ' + MONTHS[selDate.getMonth()] + ' ' + selDate.getDate() + ' · ' + selSlot;
+    setStep(3);
+    doneStep.scrollIntoView({ block: 'nearest' });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    form.reset(); selDate = null; selSlot = null; bookBtn.disabled = true;
+    viewYear = today.getFullYear(); viewMonth = today.getMonth();
+    setStep(1);
+  });
+
+  setStep(1);
+</script>
