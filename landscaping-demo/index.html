@@ -181,6 +181,12 @@
 
   .form-note { font-size: 13px; color: var(--moss); margin-top: 14px; }
 
+  .consent { border-top: 1px solid var(--line-soft); margin-top: 6px; padding-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .consent label { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; font-weight: 400; color: var(--ink-soft); line-height: 1.55; cursor: pointer; }
+  .consent input { margin-top: 2px; width: 16px; height: 16px; flex: none; accent-color: var(--pine); }
+  .consent .fine { font-size: 12px; color: var(--moss); }
+  .consent .fine a { color: var(--pine); }
+
   /* Calendar step */
   .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
   .cal-head h3 { font-size: 18px; }
@@ -228,6 +234,14 @@
   .behind li strong { display: block; color: #F4F1E3; font-size: 15px; }
   .behind-dot { flex: none; width: 26px; height: 26px; border-radius: 50%; background: rgba(166, 136, 94, 0.22); color: var(--sun); display: grid; place-items: center; font-weight: 800; font-size: 12.5px; margin-top: 2px; }
   .behind .foot { margin-top: 18px; font-size: 12.5px; color: rgba(201, 210, 188, 0.75); }
+  .pipe { margin-top: 20px; border-top: 1px solid rgba(244, 241, 227, 0.14); padding-top: 18px; }
+  .pipe-title { font-weight: 800; font-size: 15px; color: #F4F1E3; }
+  .pipe-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 12px; }
+  .stage { font-size: 11.5px; font-weight: 700; padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(244, 241, 227, 0.28); color: #B9C4AC; white-space: nowrap; }
+  .stage.done { background: rgba(166, 136, 94, 0.28); border-color: var(--sun); color: #F4F1E3; }
+  .stage.win { border-color: var(--leaf); color: #CBD6BC; }
+  .pipe-arrow { color: rgba(244, 241, 227, 0.4); font-weight: 800; }
+  .pipe-note { font-size: 12.5px; color: #B9C4AC; margin-top: 12px; }
 
   /* ---------- Footer ---------- */
   footer { background: var(--pine-deep); color: #B9C4AC; margin-top: 72px; }
@@ -476,6 +490,17 @@
             <label for="details">Anything else we should know?</label>
             <textarea id="details" name="details" rows="3" placeholder="Roughly how big is the area? Any timeline in mind?"></textarea>
           </div>
+          <div class="consent">
+            <label>
+              <input type="checkbox" id="smsConsent" name="sms_consent" required>
+              <span>I agree to receive appointment and account text messages from Peak Green Landscaping at the mobile number provided (e.g. walkthrough confirmations and reminders). Message frequency varies. Message &amp; data rates may apply. Reply STOP to opt out or HELP for help.</span>
+            </label>
+            <label>
+              <input type="checkbox" id="mktConsent" name="marketing_consent">
+              <span>I'd also like occasional offers and seasonal service reminders by text. Optional — not required to get a quote.</span>
+            </label>
+            <p class="fine">By submitting, you agree to our <a href="#privacy">Privacy Policy</a> and <a href="#terms">Terms of Service</a>. Consent to marketing texts is not a condition of purchase.</p>
+          </div>
           <div class="form-actions">
             <button class="btn btn-pine" type="submit" style="flex:1;">Continue → pick your walkthrough time</button>
           </div>
@@ -522,12 +547,19 @@
         <p class="eyebrow">Behind the scenes</p>
         <h3>What HighLevel does the moment they submit</h3>
         <ol>
-          <li><span class="behind-dot">1</span><div><strong>Contact created &amp; tagged</strong>Name, phone, email, address, and requested services land in your CRM, tagged "Quote Request."</div></li>
+          <li><span class="behind-dot">1</span><div><strong>Contact &amp; opportunity created</strong>Name, phone, email, address, and requested services land in your CRM tagged "Quote Request" — and a new card appears in your sales pipeline.</div></li>
           <li><span class="behind-dot">2</span><div><strong>Walkthrough booked on your calendar</strong>The slot they pick syncs to your Google/Outlook calendar with all their details attached.</div></li>
           <li><span class="behind-dot">3</span><div><strong>Instant confirmation text + email</strong>Branded confirmation goes out automatically — no one has to remember to reply.</div></li>
           <li><span class="behind-dot">4</span><div><strong>Automatic reminders</strong>24-hour and 1-hour reminders cut no-shows dramatically.</div></li>
           <li><span class="behind-dot">5</span><div><strong>Follow-up that never forgets</strong>If they don't book a time, HighLevel texts them the booking link. After the visit, the quote follow-up sequence starts.</div></li>
         </ol>
+        <div class="pipe">
+          <p class="pipe-title">Every lead moves through your pipeline</p>
+          <div class="pipe-row">
+            <span class="stage done">New Lead</span><span class="pipe-arrow">›</span><span class="stage done">Walkthrough Booked</span><span class="pipe-arrow">›</span><span class="stage">Walkthrough Done</span><span class="pipe-arrow">›</span><span class="stage">Quote Sent</span><span class="pipe-arrow">›</span><span class="stage win">Job Won</span>
+          </div>
+          <p class="pipe-note">Each quote request becomes a card on this board and moves stages automatically as they book and you quote — with the dollar value visible at every step, nothing falls through the cracks.</p>
+        </div>
         <p class="foot">This panel is for your walkthrough with the client — on the live site it can be swapped for service-area info or an FAQ.</p>
       </aside>
     </div>
@@ -562,7 +594,7 @@
       </div>
     </div>
     <div class="foot-legal">
-      <span>© 2026 Peak Green Landscaping · peakgreentx.com · License #000000 (placeholder)</span>
+      <span>© 2026 Peak Green Landscaping · peakgreentx.com · License #000000 (placeholder) · <a href="#privacy">Privacy Policy</a> · <a href="#terms">Terms of Service</a></span>
       <span>Design preview for a site built on HighLevel</span>
     </div>
   </div>

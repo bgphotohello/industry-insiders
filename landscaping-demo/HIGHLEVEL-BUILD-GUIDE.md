@@ -57,6 +57,13 @@ estimator, Round Robin if multiple crews quote).
 1. Fields, in order (matching the demo): First Name, Last Name, Phone, Email,
    Property Address, Services Needed (checkbox group), Project Details.
 2. Mark name/phone/email/address **required**.
+2a. **SMS consent (A2P):** add two checkbox elements at the bottom of the
+   form, copied verbatim from the demo — a **required** transactional
+   consent ("I agree to receive appointment and account text messages…
+   Reply STOP to opt out or HELP for help.") and an **optional** marketing
+   consent. Neither may be pre-checked. Below them, a text element linking
+   the Privacy Policy and Terms of Service. Store the marketing checkbox in
+   a custom field (e.g. "SMS Marketing Consent") — section 7 explains why.
 3. **Styling:** rounded inputs, off-white field background, and a full-width
    submit button. Demo palette if you want to match exactly:
    - Deep olive `#39442F` (headers, primary button)
@@ -107,14 +114,46 @@ Because the contact was just created by the form, HighLevel pre-fills their
 info on the booking widget — they only pick a date and time, exactly like the
 demo's step 2.
 
-## 5. Automations (Workflows)
+## 5. Pipeline & opportunities
+
+This is what turns the site from "a contact form" into a sales process the
+owner can watch. **Opportunities → Pipelines → + New Pipeline**, name it
+**"Quote Requests"**, with these stages:
+
+1. **New Lead** — quote form submitted, walkthrough not yet booked
+2. **Walkthrough Booked**
+3. **Walkthrough Done**
+4. **Quote Sent**
+5. **Job Won**
+
+Notes:
+
+- The workflows in section 6 create the opportunity card and move it
+  between stages automatically — the owner only drags a card by hand when
+  they send the quote (or you automate that too, on the estimate email).
+- Use the opportunity **status** (Won / Lost / Abandoned), not extra
+  stages, for closed outcomes — that's what feeds GHL's conversion
+  reporting. Dragging to Job Won + marking Won when a quote is accepted;
+  mark Lost with a reason when it dies.
+- Set the **opportunity value** after the walkthrough (or seed it from a
+  ballpark-budget question if you add one to the form). Once values are
+  in, the pipeline header shows total dollars at every stage.
+- **Show the client the board view** (Opportunities tab): every lead as a
+  card, stage by stage, with dollar totals — this one screen usually sells
+  the whole system. The demo page previews this exact flow in its "Behind
+  the scenes" panel (New Lead › Walkthrough Booked › Walkthrough Done ›
+  Quote Sent › Job Won).
+
+## 6. Automations (Workflows)
 
 **Automation → Workflows** — three workflows make the whole thing run itself:
 
 **A. "Quote Request — New Lead"** — Trigger: Form Submitted (Quote Request)
 1. Add tag `quote-request`
-2. Assign to owner + internal notification (email/SMS to the client's phone)
-3. **Wait 30 min → If/Else: has an appointment?**
+2. **Create an opportunity** in the "Quote Requests" pipeline, stage
+   **New Lead**
+3. Assign to owner + internal notification (email/SMS to the client's phone)
+4. **Wait 30 min → If/Else: has an appointment?**
    - **No →** SMS: "Hi {{contact.first_name}}, thanks for your quote request!
      Grab a time for your free walkthrough here: {booking link}" — then a
      second nudge next day if still unbooked.
@@ -122,25 +161,70 @@ demo's step 2.
 
 **B. "Walkthrough — Confirm & Remind"** — Trigger: Customer Booked Appointment
 (Free On-Site Walkthrough)
-1. Confirmation SMS + email (date, time, what to expect, reschedule link)
-2. Reminder 24 hours before
-3. Reminder 1 hour before ("we're on the way" tone)
+1. **Move the opportunity** to stage **Walkthrough Booked**
+2. Confirmation SMS + email (date, time, what to expect, reschedule link)
+3. Reminder 24 hours before
+4. Reminder 1 hour before ("we're on the way" tone)
 
 **C. "After the Walkthrough"** — Trigger: Appointment Status = Showed
-1. Same-day thank-you + "your written quote is coming within 48 hours"
-2. Task for the owner: send the quote
-3. Optional: 3-day and 7-day follow-ups if the quote isn't accepted; review
-   request once the job completes.
+1. **Move the opportunity** to stage **Walkthrough Done**
+2. Same-day thank-you + "your written quote is coming within 48 hours"
+3. Task for the owner: send the quote — when it goes out, the card moves
+   to **Quote Sent** (drag it, or automate on the estimate email/invoice)
+4. Optional: 3-day and 7-day follow-ups if the quote isn't accepted; review
+   request once the job completes. When they accept, drag to **Job Won**
+   and mark the opportunity **Won**.
 
 Also handle **No-show**: trigger on status No Show → friendly re-book SMS.
 
 **Seasonal revenue hook:** since they do winterization and irrigation
-tune-ups, add a yearly campaign — every October, blast contacts tagged
+tune-ups, add a yearly campaign — every October, message contacts tagged
 `irrigation` with a "book your winterization" SMS/email linking to the
-calendar, and every March with a spring start-up offer. Recurring revenue
-from the contact list HighLevel is already building.
+calendar, and every March with a spring start-up offer. **Gate these on the
+marketing-consent custom field** (section 7) — seasonal offers are
+marketing texts, and only contacts who checked the optional box may get
+them. Recurring revenue from the contact list HighLevel is already
+building.
 
-## 6. Domain & launch
+## 7. A2P 10DLC / SMS compliance (do this before launch)
+
+US carriers require A2P 10DLC registration before any business SMS —
+including the confirmation and reminder texts in section 5 — will actually
+deliver. HighLevel wraps registration in **Settings → Phone Numbers →
+Trust Center** in the sub-account. Approval takes days to a few weeks, so
+start it early.
+
+1. **Brand registration:** legal business name, address, and **EIN**. If
+   Peak Green has no EIN, use the Sole Proprietor path (lower throughput,
+   fine for this volume).
+2. **Campaign registration:** use case "Low Volume Mixed" (or Mixed) fits
+   this build. For sample messages, paste the actual workflow texts —
+   booking confirmation, 24h reminder, review request. Include opt-out
+   language ("Reply STOP to opt out") in at least one sample and in the
+   real messages.
+3. **Opt-in evidence:** the quote form *is* the opt-in method. Give the
+   campaign the live form URL (and a screenshot). Reviewers check that:
+   - consent language sits with the phone field on the same form,
+   - the checkbox is **not pre-checked**,
+   - the disclosure names the business, says "Message frequency varies"
+     and "Message & data rates may apply", and gives STOP/HELP
+     instructions — the demo's consent block already reads exactly this
+     way, so keep it verbatim in the GHL form,
+   - marketing consent is separate, optional, and "not a condition of
+     purchase."
+4. **Privacy Policy & Terms pages:** must be live and linked next to the
+   consent checkboxes (the demo links them in the form and footer —
+   placeholders until the pages exist; GHL can host both as extra funnel
+   steps at `/privacy` and `/terms`). The privacy policy must include the
+   carrier-required clause: *"No mobile information will be shared with
+   third parties or affiliates for marketing or promotional purposes."*
+5. **Ongoing hygiene:** STOP/HELP replies are handled automatically by
+   GHL's LC Phone. Transactional texts (confirmations, reminders) go to
+   everyone who submitted the form; marketing texts (seasonal campaigns,
+   offers) only to contacts whose marketing-consent field is checked.
+   Never import cold lists into the SMS workflows.
+
+## 8. Domain & launch
 
 1. **Settings → Domains** → add `peakgreentx.com` (and `www.peakgreentx.com`),
    then update the DNS records at the domain's registrar per GHL's
@@ -152,7 +236,7 @@ from the contact list HighLevel is already building.
    book → confirm the appointment appears on the synced Google/Outlook
    calendar and both texts arrive.
 
-## 7. What to collect from the client
+## 9. What to collect from the client
 
 - [ ] Original logo file (SVG/PNG — the taupe mountain mark from Instagram)
 - [ ] Business hours and license # (if applicable)
@@ -164,6 +248,9 @@ from the contact list HighLevel is already building.
       retaining walls & hardscapes, outdoor living & lighting)
 - [ ] Who gets lead notifications, and estimator availability for the calendar
 - [ ] Confirm exact service area within DFW
+- [ ] Legal business name + EIN for A2P 10DLC brand registration (section 7)
+- [ ] Privacy Policy & Terms content — both pages must be live before the
+      A2P campaign is submitted
 
 ## Using the demo file itself
 
