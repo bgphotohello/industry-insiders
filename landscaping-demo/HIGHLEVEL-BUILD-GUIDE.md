@@ -5,9 +5,9 @@ GoHighLevel, wired up so a quote request books the prospect straight onto the
 company's calendar. Follow the sections in order — calendar and form first,
 page last, since the page embeds both.
 
-The demo uses **"Cedar Ridge Landscaping"** as placeholder branding. Swap in
-the client's real name, logo, phone number, license number, photos, and
-reviews everywhere you see them.
+The demo is branded **"Peak Green Landscaping"** for the client at
+**peakgreentx.com**. Phone number, city, license number, photos, and reviews
+are placeholders — swap in the real ones everywhere you see them.
 
 ---
 
@@ -87,9 +87,9 @@ Build top to bottom with GHL's page builder, mirroring the demo:
 Typography to match the demo: **Bricolage Grotesque** (headings) and
 **Karla** (body) — both are in the builder's Google Fonts picker.
 
-For SEO/mobile: set page title ("Cedar Ridge Landscaping — Lawn Care, Patios &
-Landscape Design"), meta description, favicon, and check every section in the
-builder's mobile preview.
+For SEO/mobile: set page title ("Peak Green Landscaping — Lawn Care, Patios &
+Landscape Design in [City], TX"), meta description, favicon, and check every
+section in the builder's mobile preview.
 
 ### Step 2 — Booking page
 
@@ -130,9 +130,12 @@ Also handle **No-show**: trigger on status No Show → friendly re-book SMS.
 
 ## 6. Domain & launch
 
-1. **Settings → Domains** → add the client's domain (or a subdomain like
-   `go.clientdomain.com`), point DNS per GHL's instructions.
-2. Set funnel Step 1 as the default page for that domain.
+1. **Settings → Domains** → add `peakgreentx.com` (and `www.peakgreentx.com`),
+   then update the DNS records at the domain's registrar per GHL's
+   instructions (A record for the root, CNAME for `www`). If a site is
+   already live on the domain, do this last — DNS is the cutover switch.
+2. Set funnel Step 1 as the default page for `peakgreentx.com`, and the
+   booking step resolves at `peakgreentx.com/book`.
 3. Test end-to-end **on your phone**: submit the form → land on the calendar →
    book → confirm the appointment appears on the synced Google/Outlook
    calendar and both texts arrive.
