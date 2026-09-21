@@ -49,7 +49,7 @@ estimator, Round Robin if multiple crews quote).
 | Field | Type |
 |---|---|
 | Property Address | Text (or use the built-in Address field) |
-| Services Needed | Checkbox — Lawn care, Design & build, Hardscape / retaining wall, Irrigation, Cleanup / mulch, Lighting |
+| Services Needed | Checkbox — Lawn care, Design & build, Turf / sod, Hardscape / retaining wall, Irrigation install / repair, Cleanup / mulch, Lighting |
 | Project Details | Multi-line text |
 
 **Sites → Forms → Builder → + Add Form**, name it "Quote Request":
@@ -134,6 +134,12 @@ demo's step 2.
 
 Also handle **No-show**: trigger on status No Show → friendly re-book SMS.
 
+**Seasonal revenue hook:** since they do winterization and irrigation
+tune-ups, add a yearly campaign — every October, blast contacts tagged
+`irrigation` with a "book your winterization" SMS/email linking to the
+calendar, and every March with a spring start-up offer. Recurring revenue
+from the contact list HighLevel is already building.
+
 ## 6. Domain & launch
 
 1. **Settings → Domains** → add `peakgreentx.com` (and `www.peakgreentx.com`),
@@ -153,8 +159,9 @@ Also handle **No-show**: trigger on status No Show → friendly re-book SMS.
 - [ ] 6–9 project photos (before/after pairs are gold — their IG is mostly
       infographics so far, so ask for job-site photos directly)
 - [ ] 3+ real reviews (or pull via GHL Reputation from their Google profile)
-- [ ] Services list confirmed (the demo's six match their IG content:
-      design-build, irrigation, retaining walls, mulch/maintenance)
+- [ ] Services list confirmed (the demo's six: lawn care & maintenance,
+      design-build, turf & sod, irrigation install/repair/winterization,
+      retaining walls & hardscapes, outdoor living & lighting)
 - [ ] Who gets lead notifications, and estimator availability for the calendar
 - [ ] Confirm exact service area within DFW
 
