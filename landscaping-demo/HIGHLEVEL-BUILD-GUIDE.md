@@ -213,11 +213,14 @@ start it early.
    - marketing consent is separate, optional, and "not a condition of
      purchase."
 4. **Privacy Policy & Terms pages:** must be live and linked next to the
-   consent checkboxes (the demo links them in the form and footer —
-   placeholders until the pages exist; GHL can host both as extra funnel
-   steps at `/privacy` and `/terms`). The privacy policy must include the
-   carrier-required clause: *"No mobile information will be shared with
-   third parties or affiliates for marketing or promotional purposes."*
+   consent checkboxes. Both are drafted in this folder — `privacy.html`
+   and `terms.html` — already containing the carrier-required clause
+   (*"No mobile information will be shared with third parties or
+   affiliates for marketing or promotional purposes"*) and the full SMS
+   terms. Recreate them as funnel steps at `/privacy` and `/terms`
+   (paste the text into simple one-column pages) and link them from the
+   form's fine print and the footer. Have the client's attorney review
+   them before launch — they're a solid starting draft, not legal advice.
 5. **Ongoing hygiene:** STOP/HELP replies are handled automatically by
    GHL's LC Phone. Transactional texts (confirmations, reminders) go to
    everyone who submitted the form; marketing texts (seasonal campaigns,
