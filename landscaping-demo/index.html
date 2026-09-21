@@ -1,18 +1,18 @@
 <title>Peak Green Landscaping</title>
 <style>
   :root {
-    --paper: #F7F5EC;
-    --ink: #1F2B1E;
-    --pine: #1E3D2B;
-    --pine-deep: #142B1E;
-    --leaf: #55803F;
-    --moss: #7E9469;
-    --sun: #DDA23A;
-    --sun-deep: #B77E1F;
+    --paper: #F5F2EA;
+    --ink: #2E342A;
+    --pine: #39442F;
+    --pine-deep: #262D20;
+    --leaf: #75875A;
+    --moss: #9AA482;
+    --sun: #A6885E;
+    --sun-deep: #8A6F4B;
     --card: #FFFFFF;
-    --line: rgba(30, 61, 43, 0.16);
-    --line-soft: rgba(30, 61, 43, 0.09);
-    --ink-soft: #4C5A48;
+    --line: rgba(57, 68, 47, 0.16);
+    --line-soft: rgba(57, 68, 47, 0.09);
+    --ink-soft: #565E4C;
     --radius: 14px;
     --display: "Bricolage Grotesque", "Avenir Next", "Trebuchet MS", sans-serif;
     --body: "Karla", "Gill Sans", "Segoe UI", sans-serif;
@@ -43,7 +43,7 @@
   /* ---------- Nav ---------- */
   .nav {
     position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
-    background: rgba(247, 245, 236, 0.92);
+    background: rgba(245, 242, 234, 0.92);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line-soft);
   }
@@ -67,14 +67,14 @@
   }
   .btn:active { transform: scale(0.98); }
   .btn-sun { background: var(--sun); color: var(--pine-deep); }
-  .btn-sun:hover { background: #E7B34F; }
+  .btn-sun:hover { background: #B5966B; }
   .btn-pine { background: var(--pine); color: #F4F1E3; }
-  .btn-pine:hover { background: #27503A; }
+  .btn-pine:hover { background: #46543A; }
   .btn-ghost { border-color: var(--line); color: var(--pine); background: transparent; }
   .btn-ghost:hover { border-color: var(--pine); }
 
   /* ---------- Hero ---------- */
-  .hero { position: relative; background: linear-gradient(180deg, #EAF0DC 0%, var(--paper) 78%); overflow: hidden; }
+  .hero { position: relative; background: linear-gradient(180deg, #E9E7D4 0%, var(--paper) 78%); overflow: hidden; }
   .hero-inner { position: relative; z-index: 2; padding-block: 72px 30px; max-width: 640px; }
   .hero h1 { font-size: clamp(38px, 6vw, 62px); font-weight: 800; color: var(--pine-deep); margin-top: 14px; }
   .hero h1 em { font-style: normal; color: var(--leaf); }
@@ -105,7 +105,7 @@
     padding: 24px 22px;
   }
   .svc-icon {
-    width: 44px; height: 44px; border-radius: 11px; background: #EAF0DC;
+    width: 44px; height: 44px; border-radius: 11px; background: #E9E7D4;
     display: grid; place-items: center; margin-bottom: 16px;
   }
   .svc h3 { font-size: 19px; font-weight: 700; }
@@ -131,7 +131,7 @@
   .work-photo span {
     position: relative; z-index: 1; font-size: 12px; font-weight: 800; letter-spacing: 0.12em;
     text-transform: uppercase; color: rgba(244, 241, 227, 0.95);
-    background: rgba(20, 43, 30, 0.55); padding: 6px 12px; border-radius: 999px;
+    background: rgba(38, 45, 32, 0.55); padding: 6px 12px; border-radius: 999px;
   }
   .work-meta { padding: 16px 18px; }
   .work-meta h3 { font-size: 17px; }
@@ -162,7 +162,7 @@
   .field label { display: block; font-weight: 800; font-size: 14px; margin-bottom: 6px; }
   .field input, .field select, .field textarea {
     width: 100%; box-sizing: border-box; font: inherit; color: var(--ink);
-    background: #FBFAF4; border: 1.5px solid var(--line); border-radius: 10px;
+    background: #FBF9F2; border: 1.5px solid var(--line); border-radius: 10px;
     padding: 11px 13px;
   }
   .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--leaf); outline: none; }
@@ -198,7 +198,7 @@
     color: var(--ink); cursor: pointer; font-variant-numeric: tabular-nums;
   }
   .cal-day:hover:not(:disabled) { border-color: var(--leaf); }
-  .cal-day:disabled { color: rgba(31, 43, 30, 0.25); cursor: default; }
+  .cal-day:disabled { color: rgba(46, 52, 42, 0.25); cursor: default; }
   .cal-day.sel { background: var(--pine); color: #F4F1E3; }
   .slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 18px; }
   @media (max-width: 420px) { .slots { grid-template-columns: repeat(2, 1fr); } }
@@ -213,7 +213,7 @@
 
   /* Confirmation */
   .confirm { text-align: center; padding-block: 18px; }
-  .confirm-badge { width: 62px; height: 62px; margin: 0 auto 18px; border-radius: 50%; background: #EAF0DC; display: grid; place-items: center; }
+  .confirm-badge { width: 62px; height: 62px; margin: 0 auto 18px; border-radius: 50%; background: #E9E7D4; display: grid; place-items: center; }
   .confirm h3 { font-size: 24px; color: var(--pine-deep); }
   .confirm .when { margin-top: 10px; font-weight: 800; font-size: 17px; color: var(--leaf); }
   .confirm p.small { margin-top: 12px; font-size: 14.5px; color: var(--ink-soft); max-width: 40ch; margin-inline: auto; }
@@ -226,7 +226,7 @@
   .behind li { display: flex; gap: 14px; padding-block: 13px; border-top: 1px solid rgba(244, 241, 227, 0.14); font-size: 14.5px; color: #C9D2BC; }
   .behind li:first-child { border-top: 0; padding-top: 0; }
   .behind li strong { display: block; color: #F4F1E3; font-size: 15px; }
-  .behind-dot { flex: none; width: 26px; height: 26px; border-radius: 50%; background: rgba(221, 162, 58, 0.16); color: var(--sun); display: grid; place-items: center; font-weight: 800; font-size: 12.5px; margin-top: 2px; }
+  .behind-dot { flex: none; width: 26px; height: 26px; border-radius: 50%; background: rgba(166, 136, 94, 0.22); color: var(--sun); display: grid; place-items: center; font-weight: 800; font-size: 12.5px; margin-top: 2px; }
   .behind .foot { margin-top: 18px; font-size: 12.5px; color: rgba(201, 210, 188, 0.75); }
 
   /* ---------- Footer ---------- */
@@ -252,8 +252,8 @@
 <header class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="#top">
-      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="17" fill="#1E3D2B"/><path d="M6.5 24.5 13 13l4.5 7 3.5-5.5 6.5 10Z" fill="#55803F"/><path d="m13 13 4.5 7-2.2 3.5h-8L6.5 24.5 13 13Z" fill="#DDA23A" opacity="0.9"/><path d="M6.5 24.5h21" stroke="#DDA23A" stroke-width="1.6" stroke-linecap="round"/></svg>
-      <span class="brand-name">Peak Green<small>Landscaping · Texas</small></span>
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="17" fill="#8C7A63"/><path d="M7.5 22.5 14.5 9.5l7 13Z" fill="#EFE9DA" opacity="0.85"/><path d="M14 22.5 20.5 11l7 11.5Z" fill="#F8F4E9"/><path d="M7 22.5h20" stroke="#F8F4E9" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <span class="brand-name">Peak Green<small>Landscaping · DFW</small></span>
     </a>
     <nav class="nav-links" aria-label="Main">
       <a href="#services">Services</a>
@@ -269,26 +269,26 @@
 <section class="hero" id="top">
   <div class="wrap">
     <div class="hero-inner">
-      <p class="eyebrow">Residential &amp; Commercial · Texas Born &amp; Grown</p>
-      <h1>A yard you're proud to <em>pull up to.</em></h1>
-      <p class="hero-sub">Design, installation, and year-round care built for Texas heat — from a crew that shows up on time and leaves your property cleaner than we found it. Free on-site estimates, booked in under a minute.</p>
+      <p class="eyebrow">Design · Build · Maintain — Dallas–Fort Worth</p>
+      <h1>Elevated landscaping. <em>Exceptional results.</em></h1>
+      <p class="hero-sub">Luxury outdoor living designed, built, and maintained by one dedicated crew — smart irrigation, structural hardscapes, and landscapes that thrive in Texas heat. Free on-site estimates, booked in under a minute.</p>
       <div class="hero-ctas">
         <a class="btn btn-pine" href="#quote">Request a quote &amp; pick a time</a>
-        <a class="btn btn-ghost" href="tel:5555550134">Call (555) 555-0134</a>
+        <a class="btn btn-ghost" href="tel:9723575781">Call (972) 357-5781</a>
       </div>
       <div class="trust-row">
-        <span class="trust"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1l2 4.2 4.6.6-3.4 3.2.9 4.5L8 11.3 3.9 13.5l.9-4.5L1.4 5.8 6 5.2 8 1Z" fill="#DDA23A"/></svg> 4.9 from 180+ local reviews</span>
-        <span class="trust"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1 14 3.5v4C14 11.5 11.5 14 8 15 4.5 14 2 11.5 2 7.5v-4L8 1Z" fill="none" stroke="#55803F" stroke-width="1.6"/><path d="m5.4 8 1.8 1.8 3.4-3.6" fill="none" stroke="#55803F" stroke-width="1.6" stroke-linecap="round"/></svg> Licensed &amp; insured</span>
-        <span class="trust"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#55803F" stroke-width="1.6"/><path d="M8 4.5V8l2.4 1.6" fill="none" stroke="#55803F" stroke-width="1.6" stroke-linecap="round"/></svg> Estimates within 48 hours</span>
+        <span class="trust"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13C3 7.5 6 3.5 13 2c-.8 7-3.5 10.5-10 11Z" fill="none" stroke="#8A6F4B" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 13c2.5-4 5-6.5 8-8.5" stroke="#8A6F4B" stroke-width="1.4" stroke-linecap="round"/></svg> Luxury outdoor living experts</span>
+        <span class="trust"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1 14 3.5v4C14 11.5 11.5 14 8 15 4.5 14 2 11.5 2 7.5v-4L8 1Z" fill="none" stroke="#75875A" stroke-width="1.6"/><path d="m5.4 8 1.8 1.8 3.4-3.6" fill="none" stroke="#75875A" stroke-width="1.6" stroke-linecap="round"/></svg> Licensed &amp; insured</span>
+        <span class="trust"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#75875A" stroke-width="1.6"/><path d="M8 4.5V8l2.4 1.6" fill="none" stroke="#75875A" stroke-width="1.6" stroke-linecap="round"/></svg> Estimates within 48 hours</span>
       </div>
     </div>
   </div>
   <svg class="hero-art" viewBox="0 0 1440 210" preserveAspectRatio="none" aria-hidden="true">
-    <circle cx="1150" cy="60" r="46" fill="#EFC469" opacity="0.85"/>
-    <path d="M0 150 C 240 90, 420 170, 700 128 C 980 86, 1160 150, 1440 110 V 210 H 0 Z" fill="#7E9469" opacity="0.55"/>
-    <path d="M0 170 C 260 120, 520 190, 820 150 C 1100 114, 1260 176, 1440 140 V 210 H 0 Z" fill="#55803F" opacity="0.7"/>
-    <path d="M0 190 C 300 150, 640 205, 960 172 C 1200 148, 1340 196, 1440 176 V 210 H 0 Z" fill="#1E3D2B"/>
-    <g fill="#142B1E">
+    <circle cx="1150" cy="60" r="46" fill="#C9B08A" opacity="0.85"/>
+    <path d="M0 150 C 240 90, 420 170, 700 128 C 980 86, 1160 150, 1440 110 V 210 H 0 Z" fill="#9AA482" opacity="0.55"/>
+    <path d="M0 170 C 260 120, 520 190, 820 150 C 1100 114, 1260 176, 1440 140 V 210 H 0 Z" fill="#75875A" opacity="0.7"/>
+    <path d="M0 190 C 300 150, 640 205, 960 172 C 1200 148, 1340 196, 1440 176 V 210 H 0 Z" fill="#39442F"/>
+    <g fill="#262D20">
       <path d="M180 178c0-26 6-44 14-56 8 12 14 30 14 56h-28Z"/>
       <path d="M980 166c0-22 5-37 12-47 7 10 12 25 12 47h-24Z"/>
       <path d="M1290 160c0-18 4-30 10-38 6 8 10 20 10 38h-20Z"/>
@@ -306,34 +306,34 @@
     </div>
     <div class="svc-grid">
       <div class="svc">
-        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18M5 18c1-6 3-10 7-13 4 3 6 7 7 13" fill="none" stroke="#1E3D2B" stroke-width="1.8" stroke-linecap="round"/><path d="M12 18V9" stroke="#55803F" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18h18M5 18c1-6 3-10 7-13 4 3 6 7 7 13" fill="none" stroke="#39442F" stroke-width="1.8" stroke-linecap="round"/><path d="M12 18V9" stroke="#75875A" stroke-width="1.8" stroke-linecap="round"/></svg></div>
         <h3>Lawn Care &amp; Maintenance</h3>
         <p>Weekly mowing, edging, fertilization, and weed control on a schedule you never have to think about.</p>
       </div>
       <div class="svc">
-        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20c0-8 4-13 12-15-1 9-5 13-12 15Z" fill="none" stroke="#1E3D2B" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 20c3-4 6-7 10-9" stroke="#55803F" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <h3>Landscape Design &amp; Install</h3>
-        <p>Beds, plantings, sod, and full designs drawn for your soil, sun, and budget — installed by our own crew.</p>
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20c0-8 4-13 12-15-1 9-5 13-12 15Z" fill="none" stroke="#39442F" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 20c3-4 6-7 10-9" stroke="#75875A" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Landscape Design &amp; Build</h3>
+        <p>Custom designs drawn for your soil, sun, and budget — then built by the same crew, start to finish.</p>
       </div>
       <div class="svc">
-        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="13" width="8" height="5" rx="1" fill="none" stroke="#1E3D2B" stroke-width="1.8"/><rect x="13" y="13" width="8" height="5" rx="1" fill="none" stroke="#1E3D2B" stroke-width="1.8"/><rect x="8" y="6" width="8" height="5" rx="1" fill="none" stroke="#55803F" stroke-width="1.8"/></svg></div>
-        <h3>Patios &amp; Hardscapes</h3>
-        <p>Paver patios, walkways, fire pits, and retaining walls built to drain right and stay level.</p>
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="13" width="8" height="5" rx="1" fill="none" stroke="#39442F" stroke-width="1.8"/><rect x="13" y="13" width="8" height="5" rx="1" fill="none" stroke="#39442F" stroke-width="1.8"/><rect x="8" y="6" width="8" height="5" rx="1" fill="none" stroke="#75875A" stroke-width="1.8"/></svg></div>
+        <h3>Retaining Walls &amp; Hardscapes</h3>
+        <p>Paver patios, walkways, fire pits, and engineered retaining walls that control erosion and stay level.</p>
       </div>
       <div class="svc">
-        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 4 5 7 5 10a5 5 0 0 1-10 0c0-3 2-6 5-10Z" fill="none" stroke="#1E3D2B" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 16v-4" stroke="#55803F" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <h3>Irrigation &amp; Drainage</h3>
-        <p>Sprinkler installs, repairs, spring start-ups, winterization, and French drains that end soggy spots.</p>
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 4 5 7 5 10a5 5 0 0 1-10 0c0-3 2-6 5-10Z" fill="none" stroke="#39442F" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 16v-4" stroke="#75875A" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Smart Irrigation &amp; Drainage</h3>
+        <p>Water-wise drip and sprinkler systems that stop overwatering, plus drainage that ends soggy spots — your lawn healthier, your water bill lower.</p>
       </div>
       <div class="svc">
-        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11" fill="none" stroke="#1E3D2B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 12 12)"/></svg></div>
-        <h3>Seasonal Cleanups</h3>
-        <p>Spring and fall cleanups, leaf removal, pruning, and fresh mulch so every season starts sharp.</p>
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11" fill="none" stroke="#39442F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="rotate(90 12 12)"/></svg></div>
+        <h3>Mulch &amp; Seasonal Cleanups</h3>
+        <p>Spring and fall cleanups, pruning, and fresh mulch that holds moisture through the Texas summer.</p>
       </div>
       <div class="svc">
-        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 15a5 5 0 1 1 6 0v2H9v-2Z" fill="none" stroke="#1E3D2B" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 20h4" stroke="#55803F" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <h3>Outdoor Lighting</h3>
-        <p>Low-voltage landscape lighting that makes the front walk safer and the backyard usable after dark.</p>
+        <div class="svc-icon"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 15a5 5 0 1 1 6 0v2H9v-2Z" fill="none" stroke="#39442F" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 20h4" stroke="#75875A" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <h3>Outdoor Living &amp; Lighting</h3>
+        <p>Low-voltage lighting and finishing touches that make your outdoor space usable long after dark.</p>
       </div>
     </div>
   </div>
@@ -376,15 +376,15 @@
     </div>
     <div class="work-grid">
       <div class="work-card">
-        <div class="work-photo" style="background: linear-gradient(160deg, #55803F 0%, #1E3D2B 100%);"><span>Project photo</span></div>
+        <div class="work-photo" style="background: linear-gradient(160deg, #75875A 0%, #39442F 100%);"><span>Project photo</span></div>
         <div class="work-meta"><h3>Full backyard rebuild</h3><p>Paver patio, fire pit, new sod &amp; lighting</p></div>
       </div>
       <div class="work-card">
-        <div class="work-photo" style="background: linear-gradient(160deg, #7E9469 0%, #3C5A34 100%);"><span>Project photo</span></div>
+        <div class="work-photo" style="background: linear-gradient(160deg, #9AA482 0%, #4A5639 100%);"><span>Project photo</span></div>
         <div class="work-meta"><h3>Front yard refresh</h3><p>Bed redesign, stone border, seasonal color</p></div>
       </div>
       <div class="work-card">
-        <div class="work-photo" style="background: linear-gradient(160deg, #C9BE8F 0%, #55803F 100%);"><span>Project photo</span></div>
+        <div class="work-photo" style="background: linear-gradient(160deg, #C0B394 0%, #75875A 100%);"><span>Project photo</span></div>
         <div class="work-meta"><h3>Drainage &amp; lawn recovery</h3><p>French drain, regrade, irrigation tune-up</p></div>
       </div>
     </div>
@@ -419,7 +419,7 @@
 </section>
 
 <!-- ============ QUOTE + BOOKING ============ -->
-<section class="section" id="quote" style="background: #EFEDE0;">
+<section class="section" id="quote" style="background: #ECE8DA;">
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Free estimate</p>
@@ -464,10 +464,10 @@
             <label id="svcLabel">What do you need? <span style="font-weight:400; color:var(--moss);">(pick any)</span></label>
             <div class="chips" role="group" aria-labelledby="svcLabel">
               <label><input type="checkbox" id="svc-lawn" name="services" value="Lawn care"> Lawn care</label>
-              <label><input type="checkbox" id="svc-design" name="services" value="Design & install"> Design &amp; install</label>
-              <label><input type="checkbox" id="svc-patio" name="services" value="Patio / hardscape"> Patio / hardscape</label>
+              <label><input type="checkbox" id="svc-design" name="services" value="Design & build"> Design &amp; build</label>
+              <label><input type="checkbox" id="svc-patio" name="services" value="Hardscape / retaining wall"> Hardscape / retaining wall</label>
               <label><input type="checkbox" id="svc-irrigation" name="services" value="Irrigation"> Irrigation</label>
-              <label><input type="checkbox" id="svc-cleanup" name="services" value="Cleanup"> Cleanup</label>
+              <label><input type="checkbox" id="svc-cleanup" name="services" value="Cleanup / mulch"> Cleanup / mulch</label>
               <label><input type="checkbox" id="svc-lighting" name="services" value="Lighting"> Lighting</label>
             </div>
           </div>
@@ -505,7 +505,7 @@
         <!-- STEP 3: confirmation -->
         <div id="doneStep" class="confirm" hidden>
           <div class="confirm-badge">
-            <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="m7 16 6 6L24 9" fill="none" stroke="#55803F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="m7 16 6 6L24 9" fill="none" stroke="#75875A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <h3>You're on the calendar.</h3>
           <p class="when" id="confirmWhen">—</p>
@@ -539,13 +539,13 @@
     <div class="foot-inner">
       <div>
         <h4>Peak Green Landscaping</h4>
-        <p>peakgreentx.com — swap in the real logo, phone number, photos, and license number before launch.</p>
-        <p style="margin-top:12px;"><a href="tel:5555550134">(555) 555-0134 <span style="font-size:12px; color:rgba(185,196,172,0.7);">(placeholder)</span></a><br><a href="mailto:hello@peakgreentx.com">hello@peakgreentx.com</a></p>
+        <p>Elevated Landscaping. Exceptional Results.<br>Design · Build · Maintain</p>
+        <p style="margin-top:12px;"><a href="tel:9723575781">(972) 357-5781</a><br><a href="mailto:info@peakgreentx.com">info@peakgreentx.com</a><br><a href="https://www.instagram.com/peakgreenlandscape/">@peakgreenlandscape</a></p>
       </div>
       <div>
         <h4>Service area</h4>
         <ul>
-          <li>Serving [city] &amp; surrounding areas, TX</li>
+          <li>Serving Dallas–Fort Worth &amp; surrounding areas</li>
           <li>Mon–Fri · 7:30am – 5:00pm</li>
           <li>Sat · By appointment</li>
         </ul>

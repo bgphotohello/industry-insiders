@@ -5,9 +5,14 @@ GoHighLevel, wired up so a quote request books the prospect straight onto the
 company's calendar. Follow the sections in order — calendar and form first,
 page last, since the page embeds both.
 
-The demo is branded **"Peak Green Landscaping"** for the client at
-**peakgreentx.com**. Phone number, city, license number, photos, and reviews
-are placeholders — swap in the real ones everywhere you see them.
+The client is **Peak Green Landscaping** (peakgreentx.com · Instagram
+[@peakgreenlandscape](https://www.instagram.com/peakgreenlandscape/)),
+serving Dallas–Fort Worth. Real details already in the demo: phone
+**(972) 357-5781**, email **info@peakgreentx.com**, tagline *"Elevated
+Landscaping. Exceptional Results. — Design · Build · Maintain."* Still
+placeholders: project photos, reviews, license number, and their actual
+logo file (the demo redraws the mountain mark as SVG — get the original
+from the client).
 
 ---
 
@@ -44,7 +49,7 @@ estimator, Round Robin if multiple crews quote).
 | Field | Type |
 |---|---|
 | Property Address | Text (or use the built-in Address field) |
-| Services Needed | Checkbox — Lawn care, Design & install, Patio / hardscape, Irrigation, Cleanup, Lighting |
+| Services Needed | Checkbox — Lawn care, Design & build, Hardscape / retaining wall, Irrigation, Cleanup / mulch, Lighting |
 | Project Details | Multi-line text |
 
 **Sites → Forms → Builder → + Add Form**, name it "Quote Request":
@@ -54,10 +59,11 @@ estimator, Round Robin if multiple crews quote).
 2. Mark name/phone/email/address **required**.
 3. **Styling:** rounded inputs, off-white field background, and a full-width
    submit button. Demo palette if you want to match exactly:
-   - Deep pine `#1E3D2B` (headers, primary button)
-   - Leaf green `#55803F` (accents)
-   - Gold `#DDA23A` (call-to-action button)
-   - Paper background `#F7F5EC`
+   - Deep olive `#39442F` (headers, primary button)
+   - Sage `#75875A` (accents)
+   - Bronze `#A6885E` (call-to-action button)
+   - Taupe `#8C7A63` (their logo circle)
+   - Paper background `#F5F2EA`
 4. **On Submit → Redirect to URL** → the URL of the funnel's calendar step
    (you'll have this after section 4). This is what turns "quote request"
    into "on the calendar" in one motion.
@@ -78,7 +84,7 @@ Build top to bottom with GHL's page builder, mirroring the demo:
 | Sticky nav with "Get a Free Quote" button | Navigation menu section, button links to `#quote` |
 | Hero (headline, sub, two buttons, trust chips) | 1-column section, H1 + paragraph + button row |
 | Services (6 cards) | 3-column row × 2, icon + heading + text each |
-| How it works (3 numbered steps, dark band) | 3-column section, background `#142B1E` |
+| How it works (3 numbered steps, dark band) | 3-column section, background `#262D20` |
 | Recent projects (3 photo cards) | 3-column row with Image elements — **use the client's real before/after photos** |
 | Reviews (3 quotes) | 3-column row; or embed the GHL Reviews widget if Reputation is active |
 | Quote section | **Form element** → select "Quote Request" (give the section ID `quote` so nav buttons anchor to it) |
@@ -87,9 +93,9 @@ Build top to bottom with GHL's page builder, mirroring the demo:
 Typography to match the demo: **Bricolage Grotesque** (headings) and
 **Karla** (body) — both are in the builder's Google Fonts picker.
 
-For SEO/mobile: set page title ("Peak Green Landscaping — Lawn Care, Patios &
-Landscape Design in [City], TX"), meta description, favicon, and check every
-section in the builder's mobile preview.
+For SEO/mobile: set page title ("Peak Green Landscaping — Landscape Design,
+Build & Maintenance in Dallas–Fort Worth"), meta description, favicon, and
+check every section in the builder's mobile preview.
 
 ### Step 2 — Booking page
 
@@ -142,12 +148,15 @@ Also handle **No-show**: trigger on status No Show → friendly re-book SMS.
 
 ## 7. What to collect from the client
 
-- [ ] Business name, logo (SVG/PNG), brand colors if they have them
-- [ ] Phone number, email, service area, hours, license #
-- [ ] 6–9 project photos (before/after pairs are gold)
+- [ ] Original logo file (SVG/PNG — the taupe mountain mark from Instagram)
+- [ ] Business hours and license # (if applicable)
+- [ ] 6–9 project photos (before/after pairs are gold — their IG is mostly
+      infographics so far, so ask for job-site photos directly)
 - [ ] 3+ real reviews (or pull via GHL Reputation from their Google profile)
-- [ ] Services list confirmed (the demo's six are a starting point)
+- [ ] Services list confirmed (the demo's six match their IG content:
+      design-build, irrigation, retaining walls, mulch/maintenance)
 - [ ] Who gets lead notifications, and estimator availability for the calendar
+- [ ] Confirm exact service area within DFW
 
 ## Using the demo file itself
 
