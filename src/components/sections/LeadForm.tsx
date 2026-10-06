@@ -202,6 +202,12 @@ export function LeadForm({ turnstileSiteKey }: { turnstileSiteKey: string | null
           />
           <span className="measure text-[0.92rem] font-light leading-[1.65] text-muted">
             {interest.consent}
+            {/* The consequence sits inside the label, so clicking it still
+                toggles the box and screen readers hear the whole story as one
+                statement. */}
+            <span className="mt-1.5 block text-[0.82rem] leading-[1.6] text-faint">
+              {interest.consentNote}
+            </span>
           </span>
         </label>
       </div>

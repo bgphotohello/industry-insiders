@@ -123,7 +123,14 @@ export const interest = {
   heading: { line1: "The room", accent: "is forming." },
   body: "Join the private interest list to receive founding announcements, event invitations, and membership information as it becomes available.",
   consent:
-    "I would like to receive news, invitations, and membership information from Industry Insider.",
+    "Yes — send me founding announcements, event invitations, and membership information from Industry Insider.",
+  /**
+   * The consequence, stated honestly: invitations are delivered to this list,
+   * so declining really can mean missing yours. A statement of fact, not
+   * pressure — the box still defaults to unchecked and nothing nags.
+   */
+  consentNote:
+    "Invitations are sent by email, so leaving this unchecked may mean missing yours.",
   submitLabel: "KEEP ME INFORMED",
   submittingLabel: "SENDING",
   privacyNote: "Private by design. Your information will never be sold.",
