@@ -4,6 +4,7 @@ import { consoleProvider } from "./providers/console";
 import { fileProvider } from "./providers/file";
 import { createResendProvider } from "./providers/resend";
 import { createSupabaseProvider } from "./providers/supabase";
+import { createMailchimpProvider } from "./providers/mailchimp";
 import { createWebhookProvider } from "./providers/webhook";
 import type { LeadProvider, LeadRecord } from "./types";
 
@@ -66,6 +67,20 @@ function resolveProviders(): LeadProvider[] {
           break;
         }
         providers.push(createResendProvider({ apiKey, from, to }));
+        break;
+      }
+
+      case "mailchimp": {
+        const apiKey = process.env.MAILCHIMP_API_KEY;
+        const audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
+        if (!apiKey || !audienceId) {
+          warnMissing("mailchimp", [
+            "MAILCHIMP_API_KEY",
+            "MAILCHIMP_AUDIENCE_ID",
+          ]);
+          break;
+        }
+        providers.push(createMailchimpProvider({ apiKey, audienceId }));
         break;
       }
 
